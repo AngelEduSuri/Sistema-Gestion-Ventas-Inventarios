@@ -68,21 +68,21 @@ public class Menu extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelFondo = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        panelBotones = new javax.swing.JPanel();
         btnNuevaVenta = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
         btnVendedor = new javax.swing.JButton();
         btnProveedor = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        panelVentana = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelFondo.setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 51));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        panelBotones.setBackground(new java.awt.Color(0, 0, 51));
+        panelBotones.setLayout(new java.awt.GridBagLayout());
 
         btnNuevaVenta.setBackground(new java.awt.Color(0, 102, 102));
         btnNuevaVenta.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -98,7 +98,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
-        jPanel1.add(btnNuevaVenta, gridBagConstraints);
+        panelBotones.add(btnNuevaVenta, gridBagConstraints);
 
         btnProductos.setBackground(new java.awt.Color(0, 102, 102));
         btnProductos.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -114,7 +114,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        jPanel1.add(btnProductos, gridBagConstraints);
+        panelBotones.add(btnProductos, gridBagConstraints);
 
         btnVendedor.setBackground(new java.awt.Color(0, 102, 102));
         btnVendedor.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -130,7 +130,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
-        jPanel1.add(btnVendedor, gridBagConstraints);
+        panelBotones.add(btnVendedor, gridBagConstraints);
 
         btnProveedor.setBackground(new java.awt.Color(0, 102, 102));
         btnProveedor.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -145,7 +145,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        jPanel1.add(btnProveedor, gridBagConstraints);
+        panelBotones.add(btnProveedor, gridBagConstraints);
 
         btnReportes.setBackground(new java.awt.Color(0, 102, 102));
         btnReportes.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -161,7 +161,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
-        jPanel1.add(btnReportes, gridBagConstraints);
+        panelBotones.add(btnReportes, gridBagConstraints);
 
         btnSalir.setBackground(new java.awt.Color(0, 102, 102));
         btnSalir.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -182,7 +182,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(btnSalir, gridBagConstraints);
+        panelBotones.add(btnSalir, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -190,18 +190,18 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.3;
         gridBagConstraints.weighty = 0.3;
-        panelFondo.add(jPanel1, gridBagConstraints);
+        panelFondo.add(panelBotones, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 0));
+        panelVentana.setBackground(new java.awt.Color(51, 51, 0));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelVentanaLayout = new javax.swing.GroupLayout(panelVentana);
+        panelVentana.setLayout(panelVentanaLayout);
+        panelVentanaLayout.setHorizontalGroup(
+            panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 423, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelVentanaLayout.setVerticalGroup(
+            panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 417, Short.MAX_VALUE)
         );
 
@@ -211,7 +211,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        panelFondo.add(jPanel2, gridBagConstraints);
+        panelFondo.add(panelVentana, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,8 +266,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVendedor;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelFondo;
+    private javax.swing.JPanel panelVentana;
     // End of variables declaration//GEN-END:variables
 }
