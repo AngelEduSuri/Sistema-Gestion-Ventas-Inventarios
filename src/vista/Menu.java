@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -17,63 +18,62 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         ventana(); //Llamamos al metodo en el constructor para aplicar las caracteristicas
         iconoBotones();
-        
+
     }
 
-    
     private void ventana() { //Metodo para inicializar la ventana maximizada y con titulo
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS");
-       this.setMinimumSize(new Dimension(1000, 600));             
-    }   
-    
+    }
+
     //Metodo para asignar los iconos a los botones
-    private void iconoBotones(){
+    private void iconoBotones() {
         ImageIcon iconoVenta = new ImageIcon(getClass().getResource("/img/bolsa-de-la-compra.png"));
         int anchoVenta = btnNuevaVenta.getWidth();
         int altoVenta = btnNuevaVenta.getHeight();
         ImageIcon iconUno = new ImageIcon(iconoVenta.getImage().getScaledInstance(anchoVenta, altoVenta, Image.SCALE_SMOOTH));
         btnNuevaVenta.setIcon(iconUno);
-        
+
         ImageIcon iconoProducto = new ImageIcon(getClass().getResource("/img/inventario.png"));
         int anchoProducto = btnProductos.getWidth();
         int altoProducto = btnProductos.getHeight();
         ImageIcon iconDos = new ImageIcon(iconoProducto.getImage().getScaledInstance(anchoProducto, altoProducto, Image.SCALE_SMOOTH));
         btnProductos.setIcon(iconDos);
-        
+
         ImageIcon iconoVendedor = new ImageIcon(getClass().getResource("/img/vendedor.png"));
         int anchoVendedor = btnVendedor.getWidth();
         int altoVendedor = btnProveedor.getHeight();
         ImageIcon iconTres = new ImageIcon(iconoVendedor.getImage().getScaledInstance(anchoVendedor, altoVendedor, Image.SCALE_SMOOTH));
         btnVendedor.setIcon(iconTres);
-        
+
         ImageIcon iconoReporte = new ImageIcon(getClass().getResource("/img/reporte.png"));
         int anchoReporte = btnReportes.getWidth();
         int altoReporte = btnReportes.getHeight();
         ImageIcon iconCuatro = new ImageIcon(iconoReporte.getImage().getScaledInstance(anchoReporte, altoReporte, Image.SCALE_SMOOTH));
         btnReportes.setIcon(iconCuatro);
-        
+
         ImageIcon iconoProveedor = new ImageIcon(getClass().getResource("/img/proveedor.png"));
-        int anchoProveedor= btnProveedor.getWidth();
+        int anchoProveedor = btnProveedor.getWidth();
         int altoProveedor = btnProveedor.getHeight();
         ImageIcon iconCinco = new ImageIcon(iconoProveedor.getImage().getScaledInstance(anchoProveedor, altoProveedor, Image.SCALE_SMOOTH));
         btnProveedor.setIcon(iconCinco);
-        
+
         ImageIcon iconoSalir = new ImageIcon(getClass().getResource("/img/log-out.png"));
-        int anchoSalir= btnSalir.getWidth();
+        int anchoSalir = btnSalir.getWidth();
         int altoSalir = btnSalir.getHeight();
         ImageIcon iconSeis = new ImageIcon(iconoSalir.getImage().getScaledInstance(anchoSalir, altoSalir, Image.SCALE_SMOOTH));
         btnSalir.setIcon(iconSeis);
     }
 
-    public void centrar (JInternalFrame ventana) {
+    private void centrar(JInternalFrame ventana) {
         ventanaModulos.add(ventana);
-        Dimension posicion = ventanaModulos.getSize();
-        Dimension posiVen = ventana.getSize();
-        ventana.setLocation((posicion.width - posiVen.height) / 2, (posicion.height - posiVen.width) / 2);
+        Dimension desktopSize = ventanaModulos.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
         ventana.show();
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,6 +99,7 @@ public class Menu extends javax.swing.JFrame {
         };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         panelFondo.setLayout(new java.awt.GridBagLayout());
 
@@ -128,6 +129,11 @@ public class Menu extends javax.swing.JFrame {
         btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProductos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -260,8 +266,13 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        ProductoModulo ventanaProducto = new ProductoModulo();
+        centrar(ventanaProducto);
+    }//GEN-LAST:event_btnProductosActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
