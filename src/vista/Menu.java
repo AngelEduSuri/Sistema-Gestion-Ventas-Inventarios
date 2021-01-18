@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
 
 /**
@@ -19,6 +20,7 @@ public class Menu extends javax.swing.JFrame {
         
     }
 
+    
     private void ventana() { //Metodo para inicializar la ventana maximizada y con titulo
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS");
@@ -64,6 +66,14 @@ public class Menu extends javax.swing.JFrame {
         btnSalir.setIcon(iconSeis);
     }
 
+    public void centrar (JInternalFrame ventana) {
+        ventanaModulos.add(ventana);
+        Dimension posicion = ventanaModulos.getSize();
+        Dimension posiVen = ventana.getSize();
+        ventana.setLocation((posicion.width - posiVen.height) / 2, (posicion.height - posiVen.width) / 2);
+        ventana.show();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -78,14 +88,15 @@ public class Menu extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         panelVentana = new javax.swing.JPanel();
-        ImageIcon icon = new ImageIcon (getClass().getResource("/img/papeleria.jpg"));
-        Image image = icon.getImage();
-        ventanaPrincipal = new javax.swing.JDesktopPane(){
+        ImageIcon fondo = new ImageIcon(getClass().getResource("/img/papeleria.jpg"));
+        Image img = fondo.getImage();
+        ventanaModulos = new javax.swing.JDesktopPane(){
+
             public void paintComponent(Graphics g){
-                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+                g.drawImage(img, 0, 0, getWidth(), 
+                    getHeight(),this);
             }
         };
-        ventanaPrincipal = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,14 +215,14 @@ public class Menu extends javax.swing.JFrame {
 
         panelVentana.setBackground(new java.awt.Color(51, 51, 0));
 
-        javax.swing.GroupLayout ventanaPrincipalLayout = new javax.swing.GroupLayout(ventanaPrincipal);
-        ventanaPrincipal.setLayout(ventanaPrincipalLayout);
-        ventanaPrincipalLayout.setHorizontalGroup(
-            ventanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout ventanaModulosLayout = new javax.swing.GroupLayout(ventanaModulos);
+        ventanaModulos.setLayout(ventanaModulosLayout);
+        ventanaModulosLayout.setHorizontalGroup(
+            ventanaModulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 350, Short.MAX_VALUE)
         );
-        ventanaPrincipalLayout.setVerticalGroup(
-            ventanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        ventanaModulosLayout.setVerticalGroup(
+            ventanaModulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 417, Short.MAX_VALUE)
         );
 
@@ -219,11 +230,11 @@ public class Menu extends javax.swing.JFrame {
         panelVentana.setLayout(panelVentanaLayout);
         panelVentanaLayout.setHorizontalGroup(
             panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ventanaPrincipal)
+            .addComponent(ventanaModulos)
         );
         panelVentanaLayout.setVerticalGroup(
             panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ventanaPrincipal)
+            .addComponent(ventanaModulos)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -290,6 +301,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelVentana;
-    private javax.swing.JDesktopPane ventanaPrincipal;
+    private javax.swing.JDesktopPane ventanaModulos;
     // End of variables declaration//GEN-END:variables
 }
