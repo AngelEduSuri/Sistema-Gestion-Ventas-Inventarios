@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -15,13 +16,14 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         ventana(); //Llamamos al metodo en el constructor para aplicar las caracteristicas
         iconoBotones();
+        
     }
 
     private void ventana() { //Metodo para inicializar la ventana maximizada y con titulo
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS");
        this.setMinimumSize(new Dimension(1000, 600));             
-    }
+    }   
     
     //Metodo para asignar los iconos a los botones
     private void iconoBotones(){
@@ -76,6 +78,14 @@ public class Menu extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         panelVentana = new javax.swing.JPanel();
+        ImageIcon icon = new ImageIcon (getClass().getResource("/img/papeleria.jpg"));
+        Image image = icon.getImage();
+        ventanaPrincipal = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        };
+        ventanaPrincipal = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,15 +204,26 @@ public class Menu extends javax.swing.JFrame {
 
         panelVentana.setBackground(new java.awt.Color(51, 51, 0));
 
+        javax.swing.GroupLayout ventanaPrincipalLayout = new javax.swing.GroupLayout(ventanaPrincipal);
+        ventanaPrincipal.setLayout(ventanaPrincipalLayout);
+        ventanaPrincipalLayout.setHorizontalGroup(
+            ventanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+        );
+        ventanaPrincipalLayout.setVerticalGroup(
+            ventanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 417, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelVentanaLayout = new javax.swing.GroupLayout(panelVentana);
         panelVentana.setLayout(panelVentanaLayout);
         panelVentanaLayout.setHorizontalGroup(
             panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addComponent(ventanaPrincipal)
         );
         panelVentanaLayout.setVerticalGroup(
             panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 417, Short.MAX_VALUE)
+            .addComponent(ventanaPrincipal)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -269,5 +290,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelVentana;
+    private javax.swing.JDesktopPane ventanaPrincipal;
     // End of variables declaration//GEN-END:variables
 }
