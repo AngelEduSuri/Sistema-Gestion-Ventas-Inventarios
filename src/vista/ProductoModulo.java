@@ -1,5 +1,9 @@
-
 package vista;
+
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Producto;
+import modelo.ProductosDatos;
 
 /**
  *
@@ -7,9 +11,51 @@ package vista;
  */
 public class ProductoModulo extends javax.swing.JInternalFrame {
 
+    int idproducto;
+    ProductosDatos datosProducto = new ProductosDatos(); //Creo un objeto de la clase datosProductos para tener acceso a los metodos del CRUD
+    Producto producto = new Producto(); //Creo un objeto de la clase Producto p
+    DefaultTableModel modeloTabla;
+
     public ProductoModulo() {
         initComponents();
-       
+        diseñoTabla();
+        listarProductos();
+    }
+
+    private void diseñoTabla() { //Metodo que le asigna un modelo a la tabla de los productos
+        modeloTabla = new DefaultTableModel(); //Creo el modelo de la tabla
+        tablaProductos.setModel(modeloTabla); //Asigno a la tabla el modelo
+
+        //Añado las columnas al modelo de la tabla
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Cantidad");
+
+        //Asigno la anchura de las columnas a la tabla
+        int anchoColummna[] = {10, 300, 20, 20};
+        boolean cambiarAncho = false;
+
+        for (int i = 0; i < anchoColummna.length; i++) {
+            tablaProductos.getColumnModel().getColumn(i).setPreferredWidth(anchoColummna[i]);
+            //Hago que las columnas no se puedan redimenzionar asignandoles la variable boolean false
+            tablaProductos.getColumnModel().getColumn(i).setResizable(cambiarAncho);
+        }
+    }
+
+    private void listarProductos() { //Metodo para listar los productos en la tabla
+        List<Producto> listaProducto = datosProducto.listar();    //Creo un arrayList donde llamo el objeto listar de la clase ProductosDatos
+        Object[] datosBaseDatos = new Object[4]; //Creo un arreglo de objeto donde se almacenara los datos obtenido del arrayList 
+        for (int i = 0; i < listaProducto.size(); i++) { //El for recorre el tamaño de la lista
+            //En cada indice del arreglo, asigno los datos de los productos como id, nombre, precio, cantidad
+            datosBaseDatos[0] = listaProducto.get(i).getIdProd();
+            datosBaseDatos[1] = listaProducto.get(i).getNombreProd();
+            datosBaseDatos[2] = listaProducto.get(i).getPrecio();
+            datosBaseDatos[3] = listaProducto.get(i).getCantidad();
+
+            modeloTabla.addRow(datosBaseDatos); //Asigno a cada fila del modelo de la tabla los datos guardado en el arreglo 
+        }
+        tablaProductos.setModel(modeloTabla); //Asigno dicho modelo de fila a la tabla de los productos
     }
 
     @SuppressWarnings("unchecked")
@@ -172,9 +218,16 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
                 "ID", "Nombre", "Precio", "Cantidad"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
