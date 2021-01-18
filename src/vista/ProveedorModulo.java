@@ -52,7 +52,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 15);
         panelCajas.add(lblCedula, gridBagConstraints);
 
         lblNombres.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
@@ -62,7 +62,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 15);
         panelCajas.add(lblNombres, gridBagConstraints);
 
         lblTelefono.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
@@ -72,7 +72,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 15);
         panelCajas.add(lblTelefono, gridBagConstraints);
 
         txtNombre.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
@@ -83,7 +83,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 5, 10);
         panelCajas.add(txtNombre, gridBagConstraints);
 
         txtPrecio.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
@@ -94,20 +94,21 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 15, 5, 10);
         panelCajas.add(txtPrecio, gridBagConstraints);
 
         txtCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 10);
         panelCajas.add(txtCantidad, gridBagConstraints);
 
+        btnLimpiar.setBackground(new java.awt.Color(0, 204, 51));
         btnLimpiar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/codigo-limpio.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
@@ -122,18 +123,21 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelCajas.add(btnLimpiar, gridBagConstraints);
 
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 51));
         btnAgregar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/añadir.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 20, 0);
         panelCajas.add(btnAgregar, gridBagConstraints);
 
+        btnActualizar.setBackground(new java.awt.Color(0, 204, 51));
         btnActualizar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
@@ -145,6 +149,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 10);
         panelCajas.add(btnActualizar, gridBagConstraints);
 
+        btnEliminar.setBackground(new java.awt.Color(0, 204, 51));
         btnEliminar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -163,7 +168,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 15);
         panelCajas.add(lblProductos, gridBagConstraints);
 
         txtProductos.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
@@ -173,7 +178,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 10);
         panelCajas.add(txtProductos, gridBagConstraints);
 
         panelTabla.setBackground(new java.awt.Color(51, 71, 91));
