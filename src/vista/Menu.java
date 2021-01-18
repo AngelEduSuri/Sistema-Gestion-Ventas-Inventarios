@@ -97,7 +97,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 5);
         panelBotones.add(btnNuevaVenta, gridBagConstraints);
 
         btnProductos.setBackground(new java.awt.Color(0, 102, 102));
@@ -113,7 +113,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 10);
         panelBotones.add(btnProductos, gridBagConstraints);
 
         btnVendedor.setBackground(new java.awt.Color(0, 102, 102));
@@ -129,7 +129,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         panelBotones.add(btnVendedor, gridBagConstraints);
 
         btnProveedor.setBackground(new java.awt.Color(0, 102, 102));
@@ -144,7 +144,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
         panelBotones.add(btnProveedor, gridBagConstraints);
 
         btnReportes.setBackground(new java.awt.Color(0, 102, 102));
@@ -160,7 +160,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 5);
         panelBotones.add(btnReportes, gridBagConstraints);
 
         btnSalir.setBackground(new java.awt.Color(0, 102, 102));
@@ -181,7 +181,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
         panelBotones.add(btnSalir, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -198,7 +198,7 @@ public class Menu extends javax.swing.JFrame {
         panelVentana.setLayout(panelVentanaLayout);
         panelVentanaLayout.setHorizontalGroup(
             panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 423, Short.MAX_VALUE)
+            .addGap(0, 350, Short.MAX_VALUE)
         );
         panelVentanaLayout.setVerticalGroup(
             panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
