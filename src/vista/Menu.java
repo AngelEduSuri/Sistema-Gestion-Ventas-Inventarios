@@ -23,7 +23,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void ventana() { //Metodo para inicializar la ventana maximizada y con titulo
         this.setExtendedState(MAXIMIZED_BOTH);
-        this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS");
+        this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS - MI PAPELERIA");
     }
 
     //Metodo para asignar los iconos a los botones
@@ -166,6 +166,11 @@ public class Menu extends javax.swing.JFrame {
         btnProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProveedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProveedorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -273,6 +278,11 @@ public class Menu extends javax.swing.JFrame {
         ProductoModulo ventanaProducto = new ProductoModulo();
         centrar(ventanaProducto);
     }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedorActionPerformed
+        ProveedorModulo ventanaProveedor = new ProveedorModulo();
+        centrar(ventanaProveedor);
+    }//GEN-LAST:event_btnProveedorActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

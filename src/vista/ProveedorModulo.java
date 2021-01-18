@@ -5,9 +5,9 @@ package vista;
  *
  * @author MATHEO-PC
  */
-public class ProductoModulo extends javax.swing.JInternalFrame {
+public class ProveedorModulo extends javax.swing.JInternalFrame {
 
-    public ProductoModulo() {
+    public ProveedorModulo() {
         initComponents();
        
     }
@@ -19,9 +19,9 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
 
         panelComponentes = new javax.swing.JPanel();
         panelCajas = new javax.swing.JPanel();
-        lblNombre = new javax.swing.JLabel();
-        lblPrecio = new javax.swing.JLabel();
-        lblCantidad = new javax.swing.JLabel();
+        lblCedula = new javax.swing.JLabel();
+        lblNombres = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JTextField();
@@ -29,12 +29,14 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        lblProductos = new javax.swing.JLabel();
+        txtProductos = new javax.swing.JTextField();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        tablaProveedor = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Ventana Producto");
+        setTitle("Ventana Proveedor");
 
         panelComponentes.setBackground(new java.awt.Color(51, 71, 91));
         panelComponentes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -43,41 +45,41 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         panelCajas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCajas.setLayout(new java.awt.GridBagLayout());
 
-        lblNombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
-        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre.setText("Nombre Articulo:");
+        lblCedula.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
+        lblCedula.setForeground(new java.awt.Color(255, 255, 255));
+        lblCedula.setText("Cédula:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 5);
-        panelCajas.add(lblNombre, gridBagConstraints);
+        panelCajas.add(lblCedula, gridBagConstraints);
 
-        lblPrecio.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
-        lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
-        lblPrecio.setText("Precio:");
+        lblNombres.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
+        lblNombres.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombres.setText("Nombres:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
-        panelCajas.add(lblPrecio, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 5);
+        panelCajas.add(lblNombres, gridBagConstraints);
 
-        lblCantidad.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
-        lblCantidad.setForeground(new java.awt.Color(255, 255, 255));
-        lblCantidad.setText("Cantidad:");
+        lblTelefono.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
+        lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
+        lblTelefono.setText("Teléfono:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
-        panelCajas.add(lblCantidad, gridBagConstraints);
+        panelCajas.add(lblTelefono, gridBagConstraints);
 
         txtNombre.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.weightx = 0.5;
@@ -88,11 +90,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
         panelCajas.add(txtPrecio, gridBagConstraints);
 
         txtCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
@@ -111,12 +113,13 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnLimpiar.setText("Limpiar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelCajas.add(btnLimpiar, gridBagConstraints);
 
         btnAgregar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
@@ -124,7 +127,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnAgregar.setText("Agregar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 8;
@@ -136,7 +139,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnActualizar.setText("Actualizar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 10);
@@ -147,46 +150,68 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnEliminar.setText("Eliminar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 20, 10);
         panelCajas.add(btnEliminar, gridBagConstraints);
 
+        lblProductos.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
+        lblProductos.setForeground(new java.awt.Color(255, 255, 255));
+        lblProductos.setText("Productos:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        panelCajas.add(lblProductos, gridBagConstraints);
+
+        txtProductos.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 8;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelCajas.add(txtProductos, gridBagConstraints);
+
         panelTabla.setBackground(new java.awt.Color(51, 71, 91));
         panelTabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tablaProductos.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProveedor.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        tablaProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Precio", "Cantidad"
+                "ID", "Cédula", "Nombres", "Teléfono", "Productos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tablaProductos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tablaProductos);
-        if (tablaProductos.getColumnModel().getColumnCount() > 0) {
-            tablaProductos.getColumnModel().getColumn(0).setResizable(false);
-            tablaProductos.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tablaProductos.getColumnModel().getColumn(1).setResizable(false);
-            tablaProductos.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tablaProductos.getColumnModel().getColumn(2).setResizable(false);
-            tablaProductos.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tablaProductos.getColumnModel().getColumn(3).setResizable(false);
-            tablaProductos.getColumnModel().getColumn(3).setPreferredWidth(20);
+        tablaProveedor.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tablaProveedor);
+        if (tablaProveedor.getColumnModel().getColumnCount() > 0) {
+            tablaProveedor.getColumnModel().getColumn(0).setResizable(false);
+            tablaProveedor.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaProveedor.getColumnModel().getColumn(1).setResizable(false);
+            tablaProveedor.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tablaProveedor.getColumnModel().getColumn(2).setResizable(false);
+            tablaProveedor.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tablaProveedor.getColumnModel().getColumn(3).setResizable(false);
+            tablaProveedor.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tablaProveedor.getColumnModel().getColumn(4).setResizable(false);
+            tablaProveedor.getColumnModel().getColumn(4).setPreferredWidth(120);
         }
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
@@ -202,7 +227,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -221,9 +246,9 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             panelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelComponentesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelCajas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelCajas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -248,15 +273,17 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCantidad;
-    private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblCedula;
+    private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblProductos;
+    private javax.swing.JLabel lblTelefono;
     private javax.swing.JPanel panelCajas;
     private javax.swing.JPanel panelComponentes;
     private javax.swing.JPanel panelTabla;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JTable tablaProveedor;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtProductos;
     // End of variables declaration//GEN-END:variables
 }
