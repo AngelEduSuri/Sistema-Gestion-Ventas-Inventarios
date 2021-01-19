@@ -1,6 +1,7 @@
 package vista;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Vendedor;
 import modelo.VendedorDatos;
@@ -44,7 +45,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         }
     }
 
-    public void listarVendedor() {
+    private void listarVendedor() {
         List<Vendedor> listaVendedor = datosVendedor.listar();
         Object[] ob = new Object[5];
         for (int i = 0; i < listaVendedor.size(); i++) {
@@ -56,6 +57,93 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
             modeloTabla.addRow(ob);
         }
         tablaVendedor.setModel(modeloTabla);
+    }
+
+    private void agregarVendedor() {
+        if (txtUsuario.getText().isEmpty() || txtCedula.getText().isEmpty() || txtNombres.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(panelTabla, "No puede agregar datos vacios", "Faltan Datos", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String usuarioVen = txtUsuario.getText();
+            String cedulaVen = txtCedula.getText();
+            String nombreVen = txtNombres.getText();
+            String telefonoVen = txtTelefono.getText();
+
+            Object[] objDatos = new Object[4];
+            objDatos[0] = usuarioVen;
+            objDatos[1] = cedulaVen;
+            objDatos[2] = nombreVen;
+            objDatos[3] = telefonoVen;
+            if (datosVendedor.add(objDatos) > 0) {
+                JOptionPane.showMessageDialog(panelTabla, "Agregado exitosamente", "Vendedor agregado", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCajasTexto();
+                listarVendedor();
+            } else {
+                JOptionPane.showMessageDialog(panelTabla, "Error al agregar", "Vendedor no agregado", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void actualizarVendedor() {
+        int fila = tablaVendedor.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un vendedor", "Seleccione un vendedor", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String usuairoVen = txtUsuario.getText();
+            String cedulaVen = txtCedula.getText();
+            String nombreVen = txtNombres.getText();
+            String telefonoVen = txtTelefono.getText();
+            Object[] objDatos = new Object[5];
+            objDatos[0] = usuairoVen;
+            objDatos[1] = cedulaVen;
+            objDatos[2] = nombreVen;
+            objDatos[3] = telefonoVen;
+            objDatos[4] = idvendedor;
+            if (datosVendedor.actualizar(objDatos) > 0) {
+                JOptionPane.showMessageDialog(panelTabla, "Actualizado exitosamente", "Vendedor actualizado", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCajasTexto();
+                listarVendedor();
+            } else {
+                JOptionPane.showMessageDialog(panelTabla, "Error al actualizar", "Vendedor no actualizado", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void eliminarVendedor() {
+        int fila = tablaVendedor.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un vendedor", "Seleccione un vendedor", JOptionPane.WARNING_MESSAGE);
+        } else {
+            datosVendedor.eliminar(idvendedor);
+            JOptionPane.showMessageDialog(panelTabla, "Eliminado correctamente", "Vendedor eliminado", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCajasTexto();
+            listarVendedor();
+        }
+    }
+    
+    private void agregarDatosDeBaseDatosCajasTexto() {
+        int fila = tablaVendedor.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un vendedor", "Seleccione un vendedor", JOptionPane.WARNING_MESSAGE);
+        } else {
+            idvendedor = Integer.parseInt(tablaVendedor.getValueAt(fila, 0).toString());
+            String usuairoVen = tablaVendedor.getValueAt(fila, 1).toString();
+            String cedulaVen = tablaVendedor.getValueAt(fila, 2).toString();
+            String nombreVen = tablaVendedor.getValueAt(fila, 3).toString();
+            String telefonoVen = tablaVendedor.getValueAt(fila, 4).toString();
+            txtUsuario.setText(usuairoVen);
+            txtCedula.setText(cedulaVen);
+            txtNombres.setText(nombreVen);
+            txtTelefono.setText(telefonoVen);
+        }
+    }
+
+    private void limpiarCajasTexto() {
+        txtUsuario.setText(null);
+        txtCedula.setText(null);
+        txtNombres.setText(null);
+        txtTelefono.setText(null);
+        txtUsuario.requestFocus();
+        modeloTabla.setRowCount(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -158,6 +246,11 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         btnLimpiar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/codigo-limpio.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -173,6 +266,11 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         btnAgregar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/añadir.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -187,6 +285,11 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         btnActualizar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -199,6 +302,11 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         btnEliminar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
@@ -251,6 +359,11 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
             }
         });
         tablaVendedor.getTableHeader().setReorderingAllowed(false);
+        tablaVendedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaVendedorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaVendedor);
         if (tablaVendedor.getColumnModel().getColumnCount() > 0) {
             tablaVendedor.getColumnModel().getColumn(0).setResizable(false);
@@ -316,6 +429,27 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        agregarVendedor();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tablaVendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVendedorMouseClicked
+        agregarDatosDeBaseDatosCajasTexto();
+    }//GEN-LAST:event_tablaVendedorMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        actualizarVendedor();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminarVendedor();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarCajasTexto();
+        listarVendedor();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,7 +22,7 @@ public class ProveedorDatos implements Crud {
     @Override
     public List listar() {
         List<Proveedor> listaProveedor = new ArrayList<>();
-        String sql = "SELECT * FROM proveedor";
+        final String sql = "SELECT * FROM proveedor";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class ProveedorDatos implements Crud {
 
     @Override
     public void eliminar(int idProveedor) {
-        String sql = "DELETE FROM proveedor WHERE id_proveedor = ?";
+        final String sql = "DELETE FROM proveedor WHERE id_proveedor = ?";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);

@@ -60,7 +60,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         tablaProveedor.setModel(modeloTabla);
     }
 
-    public void agregarProveedor() {
+    private void agregarProveedor() {
         if (txtCedula.getText().isEmpty() || txtNombres.getText().isEmpty()) {
             JOptionPane.showMessageDialog(panelTabla, "Debe agregar al menos Cedula y Nombre del proveedor", "Faltan Datos", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -81,7 +81,6 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(panelTabla, "Error al agregar", "Proveedor no agregado", JOptionPane.ERROR_MESSAGE);
             }
-
         }
     }
 
@@ -101,7 +100,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
             objDatos[3] = productos;
             objDatos[4] = idProveedor;
             if (datosProveedor.actualizar(objDatos) > 0) {
-                JOptionPane.showMessageDialog(panelTabla, "Actualizado exitosamente", "Proveedor Agregado", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panelTabla, "Actualizado exitosamente", "Proveedor Actualizado", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCajasTexto();
                 listarProveedores();
             } else {
@@ -110,7 +109,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         }
     }
     
-    public void eliminarProveedor() {
+    private void eliminarProveedor() {
         int fila = tablaProveedor.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un proveedor", "Seleccione un proveedor", JOptionPane.WARNING_MESSAGE);

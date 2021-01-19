@@ -22,7 +22,7 @@ public class VendedorDatos implements Crud {
     @Override
     public List listar() {
         List<Vendedor> listaVendedores = new ArrayList<>();
-        String sql = "SELECT * FROM vendedor";
+        final String sql = "SELECT * FROM vendedor";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
@@ -43,17 +43,52 @@ public class VendedorDatos implements Crud {
     }
 
     @Override
-    public int add(Object[] o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int add(Object[] obj) {
+        int resultado = 0;
+        final String sql = "INSERT INTO vendedor(usuario, cedula, nombre, telefono) VALUES (?,?,?,?)";
+        try {
+            con = conexion.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, obj[0]);
+            ps.setObject(2, obj[1]);
+            ps.setObject(3, obj[2]);
+            ps.setObject(4, obj[3]);
+            resultado = ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error en: " + e);
+        }
+        return resultado;
     }
 
     @Override
-    public int actualizar(Object[] o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int actualizar(Object[] obj) {
+        int respuesta = 0;
+        final String sql = "UPDATE vendedor SET usuario=?, cedula=?, nombre=?, telefono=? WHERE idvendedor=?";
+        try {
+            con = conexion.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, obj[0]);
+            ps.setObject(2, obj[1]);
+            ps.setObject(3, obj[2]);
+            ps.setObject(4, obj[3]);
+            ps.setObject(5, obj[4]);
+            respuesta = ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error en: " + e);
+        }
+        return respuesta;
     }
 
     @Override
-    public void eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(int idVendedor) {
+        final String sql = "DELETE FROM vendedor WHERE idvendedor=?";
+        try {
+            con = conexion.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idVendedor);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error en: " + e);
+        }
     }
 }

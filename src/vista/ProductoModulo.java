@@ -71,10 +71,13 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             objDatos[0] = nombrePro;
             objDatos[1] = precio;
             objDatos[2] = cantidad;
-            datosProducto.add(objDatos);
-            JOptionPane.showMessageDialog(panelTabla, "Agregado correctamente", "Articulo agregado", JOptionPane.INFORMATION_MESSAGE);
-            limpiarCajasTexto();
-            listarProductos();
+            if (datosProducto.add(objDatos) > 0) {
+                JOptionPane.showMessageDialog(panelTabla, "Agregado correctamente", "Articulo agregado", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCajasTexto();
+                listarProductos();
+            } else {
+                JOptionPane.showMessageDialog(panelTabla, "No se agrego el articulo", "Articulo no agregado", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -91,10 +94,13 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             objDatos[1] = precio;
             objDatos[2] = cantidad;
             objDatos[3] = idproducto;
-            datosProducto.actualizar(objDatos);
-            JOptionPane.showMessageDialog(panelTabla, "Actualizado correctamente", "Articulo actualizado", JOptionPane.INFORMATION_MESSAGE);
-            limpiarCajasTexto();
-            listarProductos();
+            if (datosProducto.actualizar(objDatos) > 0) {
+                JOptionPane.showMessageDialog(panelTabla, "Actualizado correctamente", "Articulo actualizado", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCajasTexto();
+                listarProductos();
+            } else {
+                JOptionPane.showMessageDialog(panelTabla, "No se actualizo el articulo", "Articulo no actualizado", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -415,8 +421,8 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-       limpiarCajasTexto();
-       listarProductos();
+        limpiarCajasTexto();
+        listarProductos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
