@@ -1,5 +1,9 @@
-
 package vista;
+
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Vendedor;
+import modelo.VendedorDatos;
 
 /**
  *
@@ -7,9 +11,51 @@ package vista;
  */
 public class VendedorModulo extends javax.swing.JInternalFrame {
 
+    int idvendedor;
+    VendedorDatos datosVendedor = new VendedorDatos();
+    Vendedor vendedor = new Vendedor();
+    DefaultTableModel modeloTabla;
+
     public VendedorModulo() {
         initComponents();
-       
+        diseñoTabla();
+        listarVendedor();
+    }
+
+    private void diseñoTabla() { //Metodo que le asigna un modelo a la tabla de los vendedor
+        modeloTabla = new DefaultTableModel(); //Creo el modelo de la tabla
+        tablaVendedor.setModel(modeloTabla); //Asigno a la tabla el modelo
+
+        //Añado las columnas al modelo de la tabla
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Usuario");
+        modeloTabla.addColumn("Cédula");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Teléfono");
+
+        //Asigno la anchura de las columnas a la tabla
+        int anchoColummna[] = {5, 30, 30, 200, 30};
+        boolean cambiarAncho = false;
+
+        for (int i = 0; i < anchoColummna.length; i++) {
+            tablaVendedor.getColumnModel().getColumn(i).setPreferredWidth(anchoColummna[i]);
+            //Hago que las columnas no se puedan redimenzionar asignandoles la variable boolean false
+            tablaVendedor.getColumnModel().getColumn(i).setResizable(cambiarAncho);
+        }
+    }
+
+    public void listarVendedor() {
+        List<Vendedor> listaVendedor = datosVendedor.listar();
+        Object[] ob = new Object[5];
+        for (int i = 0; i < listaVendedor.size(); i++) {
+            ob[0] = listaVendedor.get(i).getId();
+            ob[1] = listaVendedor.get(i).getUsuario();
+            ob[2] = listaVendedor.get(i).getCedula();
+            ob[3] = listaVendedor.get(i).getNombre();
+            ob[4] = listaVendedor.get(i).getTelefono();
+            modeloTabla.addRow(ob);
+        }
+        tablaVendedor.setModel(modeloTabla);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,7 +79,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         txtTelefono = new javax.swing.JTextField();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProveedor = new javax.swing.JTable();
+        tablaVendedor = new javax.swing.JTable();
 
         setClosable(true);
         setTitle("Ventana Vendedor");
@@ -184,8 +230,8 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         panelTabla.setBackground(new java.awt.Color(51, 71, 91));
         panelTabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tablaProveedor.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        tablaProveedor.setModel(new javax.swing.table.DefaultTableModel(
+        tablaVendedor.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        tablaVendedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -204,19 +250,19 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaProveedor.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tablaProveedor);
-        if (tablaProveedor.getColumnModel().getColumnCount() > 0) {
-            tablaProveedor.getColumnModel().getColumn(0).setResizable(false);
-            tablaProveedor.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tablaProveedor.getColumnModel().getColumn(1).setResizable(false);
-            tablaProveedor.getColumnModel().getColumn(1).setPreferredWidth(30);
-            tablaProveedor.getColumnModel().getColumn(2).setResizable(false);
-            tablaProveedor.getColumnModel().getColumn(2).setPreferredWidth(30);
-            tablaProveedor.getColumnModel().getColumn(3).setResizable(false);
-            tablaProveedor.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tablaProveedor.getColumnModel().getColumn(4).setResizable(false);
-            tablaProveedor.getColumnModel().getColumn(4).setPreferredWidth(30);
+        tablaVendedor.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tablaVendedor);
+        if (tablaVendedor.getColumnModel().getColumnCount() > 0) {
+            tablaVendedor.getColumnModel().getColumn(0).setResizable(false);
+            tablaVendedor.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaVendedor.getColumnModel().getColumn(1).setResizable(false);
+            tablaVendedor.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tablaVendedor.getColumnModel().getColumn(2).setResizable(false);
+            tablaVendedor.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tablaVendedor.getColumnModel().getColumn(3).setResizable(false);
+            tablaVendedor.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tablaVendedor.getColumnModel().getColumn(4).setResizable(false);
+            tablaVendedor.getColumnModel().getColumn(4).setPreferredWidth(30);
         }
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
@@ -285,7 +331,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelCajas;
     private javax.swing.JPanel panelComponentes;
     private javax.swing.JPanel panelTabla;
-    private javax.swing.JTable tablaProveedor;
+    private javax.swing.JTable tablaVendedor;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
