@@ -15,7 +15,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
     int idproducto;
     ProductosDatos datosProducto = new ProductosDatos(); //Creo un objeto de la clase datosProductos para tener acceso a los metodos del CRUD
     Producto producto = new Producto(); //Creo un objeto de la clase Producto p
-    DefaultTableModel modeloTabla;
+    DefaultTableModel modeloTabla; //Creo un objeto para hacer un modelo a la tabla producto
 
     public ProductoModulo() {
         initComponents();
@@ -75,6 +75,53 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(panelTabla, "Agregado correctamente", "Articulo agregado", JOptionPane.INFORMATION_MESSAGE);
             limpiarCajasTexto();
             listarProductos();
+        }
+    }
+
+    private void actualizarDatos() {
+        int fila = tablaProductos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String nombrePro = txtNombre.getText();
+            String precio = txtPrecio.getText();
+            String cantidad = txtCantidad.getText();
+            Object[] objDatos = new Object[4];
+            objDatos[0] = nombrePro;
+            objDatos[1] = precio;
+            objDatos[2] = cantidad;
+            objDatos[3] = idproducto;
+            datosProducto.actualizar(objDatos);
+            JOptionPane.showMessageDialog(panelTabla, "Actualizado correctamente", "Articulo actualizado", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCajasTexto();
+            listarProductos();
+        }
+    }
+
+    public void eliminarProducto() {
+        int fila = tablaProductos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            datosProducto.eliminar(idproducto);
+            JOptionPane.showMessageDialog(panelTabla, "Eliminado correctamente", "Articulo eliminado", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCajasTexto();
+            listarProductos();
+        }
+    }
+
+    private void agregarDatosDeBaseDatosCajasTexto() {
+        int fila = tablaProductos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar algun articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            idproducto = Integer.parseInt(tablaProductos.getValueAt(fila, 0).toString());
+            String nombrePro = tablaProductos.getValueAt(fila, 1).toString();
+            String precio = tablaProductos.getValueAt(fila, 2).toString();
+            String cantidad = tablaProductos.getValueAt(fila, 3).toString();
+            txtNombre.setText(nombrePro);
+            txtPrecio.setText(precio);
+            txtCantidad.setText(cantidad);
         }
     }
 
@@ -184,6 +231,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnLimpiar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/codigo-limpio.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -216,6 +268,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnActualizar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -228,6 +285,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnEliminar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
@@ -267,6 +329,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             }
         });
         tablaProductos.getTableHeader().setReorderingAllowed(false);
+        tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaProductos);
         if (tablaProductos.getColumnModel().getColumnCount() > 0) {
             tablaProductos.getColumnModel().getColumn(0).setResizable(false);
@@ -333,8 +400,24 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregarBaseDatos();
-
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
+        agregarDatosDeBaseDatosCajasTexto();
+    }//GEN-LAST:event_tablaProductosMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        actualizarDatos();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminarProducto();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+       limpiarCajasTexto();
+       listarProductos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
