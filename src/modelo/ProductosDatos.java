@@ -42,9 +42,20 @@ public class ProductosDatos implements Crud {
     }
 
     @Override
-    public int add(Object[] o) {
-        return 0;
-
+    public int add(Object[] obj) {
+        int respuesta = 0;
+        String sql = "INSERT INTO productos(nombre_pro, precio, cantidad) VALUES (?,?,?)";
+        try {
+            con = conexion.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, obj[0]);
+            ps.setObject(2, obj[1]);
+            ps.setObject(3, obj[2]);
+            respuesta = ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error en: " + e);
+        }
+        return respuesta;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package vista;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
 import modelo.ProductosDatos;
@@ -56,6 +57,33 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             modeloTabla.addRow(datosBaseDatos); //Asigno a cada fila del modelo de la tabla los datos guardado en el arreglo 
         }
         tablaProductos.setModel(modeloTabla); //Asigno dicho modelo de fila a la tabla de los productos
+    }
+
+    public void agregarBaseDatos() { //Metodo para agregar productos a la base de datos
+        if (txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(panelTabla, "Faltan datos por agregar", "Datos Vacios", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String nombrePro = txtNombre.getText();
+            String precio = txtPrecio.getText();
+            String cantidad = txtCantidad.getText();
+
+            Object[] objDatos = new Object[3];
+            objDatos[0] = nombrePro;
+            objDatos[1] = precio;
+            objDatos[2] = cantidad;
+            datosProducto.add(objDatos);
+            JOptionPane.showMessageDialog(panelTabla, "Agregado correctamente", "Articulo agregado", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCajasTexto();
+            listarProductos();
+        }
+    }
+
+    public void limpiarCajasTexto() {
+        txtNombre.setText("");
+        txtPrecio.setText("");
+        txtCantidad.setText("");
+        txtNombre.requestFocus();
+        modeloTabla.setRowCount(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -170,6 +198,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         btnAgregar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/añadir.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -297,6 +330,11 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        agregarBaseDatos();
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
