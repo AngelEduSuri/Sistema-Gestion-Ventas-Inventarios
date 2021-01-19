@@ -9,9 +9,9 @@ import java.util.List;
 
 /**
  *
- * @author MATHEO-PC
+ * @author Angel Suriaga
  */
-public class ProductosDatos implements Crud {
+public class ProveedorDatos implements Crud {
 
     PreparedStatement ps;
     ResultSet rs;
@@ -21,47 +21,49 @@ public class ProductosDatos implements Crud {
 
     @Override
     public List listar() {
-        List<Producto> listaProducto = new ArrayList<>();
-        final String sql = "SELECT * FROM productos";
+        List<Proveedor> listaProveedor = new ArrayList<>();
+        String sql = "SELECT * FROM proveedor";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Producto productos = new Producto();
-                productos.setIdProd(rs.getInt(1));
-                productos.setNombreProd(rs.getString(2));
-                productos.setPrecio(rs.getDouble(3));
-                productos.setCantidad(rs.getInt(4));
-                listaProducto.add(productos);
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt(1));
+                proveedor.setCedula(rs.getString(2));
+                proveedor.setNombre(rs.getString(3));
+                proveedor.setTelefono(rs.getString(4));
+                proveedor.setProductos(rs.getString(5));
+                listaProveedor.add(proveedor);
             }
         } catch (SQLException e) {
             System.err.println("Error en: " + e);
         }
-        return listaProducto;
+        return listaProveedor;
     }
 
     @Override
-    public int add(Object[] obj) {
-        int respuesta = 0;
-        final String sql = "INSERT INTO productos(nombre_pro, precio, cantidad) VALUES (?,?,?)";
+    public int add(Object[] o) {
+        int resultado = 0;
+        final String sql = "INSERT INTO proveedor (cedula_prov, nombre_prov, telefono_prov, productos_prov) VALUES (?,?,?,?)";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, obj[0]);
-            ps.setObject(2, obj[1]);
-            ps.setObject(3, obj[2]);
-            respuesta = ps.executeUpdate();
+            ps.setObject(1, o[0]);
+            ps.setObject(2, o[1]);
+            ps.setObject(3, o[2]);
+            ps.setObject(4, o[3]);
+            resultado = ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error en: " + e);
         }
-        return respuesta;
+        return resultado;
     }
 
     @Override
     public int actualizar(Object[] obj) {
-        int respuesta = 0;
-        final String sql = "UPDATE productos SET nombre_pro = ?, precio = ?, cantidad = ? WHERE idproductos = ?";
+        int resultado = 0;
+        final String sql = "UPDATE proveedor SET cedula_prov = ?, nombre_prov = ?, telefono_prov = ?, productos_prov = ? WHERE id_proveedor = ?";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
@@ -69,20 +71,21 @@ public class ProductosDatos implements Crud {
             ps.setObject(2, obj[1]);
             ps.setObject(3, obj[2]);
             ps.setObject(4, obj[3]);
-            respuesta = ps.executeUpdate();
+            ps.setObject(5, obj[4]);
+            resultado = ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error en: " + e);
         }
-        return respuesta;
+        return resultado;
     }
 
     @Override
-    public void eliminar(int idProducto) {
-        final String sql = "DELETE FROM productos WHERE idproductos = ?";
+    public void eliminar(int idProveedor) {
+        String sql = "DELETE FROM proveedor WHERE id_proveedor = ?";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProducto);
+            ps.setInt(1, idProveedor);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error en: " + e);

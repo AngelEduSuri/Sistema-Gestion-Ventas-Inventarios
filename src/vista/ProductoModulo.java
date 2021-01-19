@@ -59,7 +59,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         tablaProductos.setModel(modeloTabla); //Asigno dicho modelo de fila a la tabla de los productos
     }
 
-    public void agregarBaseDatos() { //Metodo para agregar productos a la base de datos
+    private void agregarBaseDatos() { //Metodo para agregar productos a la base de datos
         if (txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(panelTabla, "Faltan datos por agregar", "Datos Vacios", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -98,7 +98,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         }
     }
 
-    public void eliminarProducto() {
+    private void eliminarProducto() {
         int fila = tablaProductos.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
@@ -125,10 +125,10 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         }
     }
 
-    public void limpiarCajasTexto() {
-        txtNombre.setText("");
-        txtPrecio.setText("");
-        txtCantidad.setText("");
+    private void limpiarCajasTexto() {
+        txtNombre.setText(null);
+        txtPrecio.setText(null);
+        txtCantidad.setText(null);
         txtNombre.requestFocus();
         modeloTabla.setRowCount(0);
     }
