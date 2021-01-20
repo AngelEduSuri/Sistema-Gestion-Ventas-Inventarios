@@ -210,7 +210,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 15);
         panelCajas.add(lblTelefono, gridBagConstraints);
 
-        txtCedula.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtCedula.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -221,7 +221,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 15, 5, 10);
         panelCajas.add(txtCedula, gridBagConstraints);
 
-        txtNombres.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtNombres.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -232,7 +232,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 5, 10);
         panelCajas.add(txtNombres, gridBagConstraints);
 
-        txtTelefono.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtTelefono.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -240,7 +240,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
         gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 5, 10);
         panelCajas.add(txtTelefono, gridBagConstraints);
 
         btnLimpiar.setBackground(new java.awt.Color(0, 204, 51));
@@ -326,20 +326,20 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 15);
         panelCajas.add(lblProductos, gridBagConstraints);
 
-        txtProductos.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtProductos.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 8;
-        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 5, 10);
         panelCajas.add(txtProductos, gridBagConstraints);
 
         panelTabla.setBackground(new java.awt.Color(51, 71, 91));
         panelTabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tablaProveedor.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        tablaProveedor.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tablaProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

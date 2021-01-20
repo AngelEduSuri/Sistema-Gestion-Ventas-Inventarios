@@ -200,7 +200,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 0);
         panelCajas.add(lblCantidad, gridBagConstraints);
 
-        txtNombre.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -211,7 +211,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 5, 10);
         panelCajas.add(txtNombre, gridBagConstraints);
 
-        txtPrecio.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtPrecio.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -222,7 +222,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
         panelCajas.add(txtPrecio, gridBagConstraints);
 
-        txtCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        txtCantidad.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -307,7 +307,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         panelTabla.setBackground(new java.awt.Color(51, 71, 91));
         panelTabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tablaProductos.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        tablaProductos.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
