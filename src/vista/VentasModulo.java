@@ -6,8 +6,10 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+import modelo.DetalleVentas;
 import modelo.Producto;
 import modelo.ProductosDatos;
+import modelo.Ventas;
 import modelo.VentasDatos;
 
 /**
@@ -19,12 +21,15 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     Producto producto = new Producto();
     ProductosDatos productoDatos = new ProductosDatos();
     VentasDatos venDatos = new VentasDatos();
+    Ventas ventas = new Ventas();
+    DetalleVentas detalleVentas = new DetalleVentas();
     DefaultTableModel modeloTabla;
     DecimalFormat formatoDecimal = new DecimalFormat("0.00");
 
     int idproducto;
     int cantidad;
     double precio;
+    double total;
     double totalPagar;
 
     public VentasModulo() {
@@ -78,7 +83,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         } else {
             int incremento = Integer.parseInt(serie);
             incremento = incremento + 1;
-            txtSerie.setText("000000" + incremento);
+            txtSerie.setText("00000" + incremento);
         }
     }
 
@@ -103,7 +108,6 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         if (txtNombreProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(panelComponentes, "Primero busque un producto", "Busque producto", JOptionPane.WARNING_MESSAGE);
         } else {
-            double total;
             int item = 0;
             item = item + 1;
             idproducto = producto.getIdProd();
@@ -135,6 +139,63 @@ public class VentasModulo extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(panelComponentes, "Articulos en el almacen no disponible", "Falta Stock", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void guardarVenta() {
+        if (txtTotalPagar.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(panelComponentes, "Agrege productos para hacer la venta", "Agregar productos", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int idv = 1;
+            String nombreCliente = txtCliente.getText();
+            String serie = txtSerie.getText();
+            String fecha = txtFecha.getText();
+            Double monto = totalPagar;
+
+            ventas.setIdVendedor(idv);
+            ventas.setCliente(nombreCliente);
+            ventas.setSerie(serie);
+            ventas.setFecha(fecha);
+            ventas.setMonto(monto);
+            if (venDatos.guardarVentas(ventas) > 0) {
+                JOptionPane.showMessageDialog(panelComponentes, "Venta Realizada", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                guardarDetalleVentas();
+                actualizarStock();
+                limpiarVenta();
+                generarNumeroSerie();
+            } else {
+                JOptionPane.showMessageDialog(panelComponentes, "No se guardo la venta", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void guardarDetalleVentas() {
+        String idVenta = venDatos.idVentas();
+        int idventa = Integer.parseInt(idVenta);
+        for (int i = 0; i < tablaVentas.getRowCount(); i++) {
+            int idprod = Integer.parseInt(tablaVentas.getValueAt(i, 1).toString());
+            String nomPro = tablaVentas.getValueAt(i, 2).toString();
+            int cant = Integer.parseInt(tablaVentas.getValueAt(i, 3).toString());
+            String fecha = txtFecha.getText();
+            detalleVentas.setIdVentas(idventa);
+            detalleVentas.setIdProducto(idprod);
+            detalleVentas.setNombrePro(nomPro);
+            detalleVentas.setCantidad(cant);
+            detalleVentas.setPrecio(precio);
+            detalleVentas.setTotal(total);
+            detalleVentas.setFecha(fecha);
+            venDatos.guardarDetalleVentas(detalleVentas);
+        }
+    }
+
+    public void actualizarStock() {
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            Producto prod = new Producto();
+            idproducto = Integer.parseInt(tablaVentas.getValueAt(i, 1).toString());
+            cantidad = Integer.parseInt(tablaVentas.getValueAt(i, 3).toString());
+            prod = productoDatos.BuscarProductoPorID(idproducto);
+            int stockActual = prod.getCantidad() - cantidad;
+            productoDatos.actualizarStock(stockActual, idproducto);
         }
     }
 
@@ -551,6 +612,11 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         btnGenerarVenta.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnGenerarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bolsa.png"))); // NOI18N
         btnGenerarVenta.setText("Generar Venta");
+        btnGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarVentaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -633,6 +699,10 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     private void btnLimipiarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimipiarTodoActionPerformed
         limpiarVenta();
     }//GEN-LAST:event_btnLimipiarTodoActionPerformed
+
+    private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
+        guardarVenta();
+    }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

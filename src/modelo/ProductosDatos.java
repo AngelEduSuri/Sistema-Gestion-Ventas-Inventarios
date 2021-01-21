@@ -91,7 +91,7 @@ public class ProductosDatos implements Crud {
 
     public Producto BuscarProductoPorID(int idProducto) {
         Producto producto = new Producto();
-        String sql = "SELECT *FROM productos WHERE idproductos=?";
+        final String sql = "SELECT *FROM productos WHERE idproductos=?";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
@@ -107,5 +107,20 @@ public class ProductosDatos implements Crud {
             System.err.println("Error en: " + e);
         }
         return producto;
+    }
+
+    public int actualizarStock(int cantidad, int idProducto) {
+        int resultado = 0;
+        final String sql = "UPDATE productos SET cantidad=? WHERE idproductos=?";
+        try {
+            con = conexion.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cantidad);
+            ps.setInt(2, idProducto);
+            resultado = ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error en: " + e);
+        }
+        return resultado;
     }
 }
