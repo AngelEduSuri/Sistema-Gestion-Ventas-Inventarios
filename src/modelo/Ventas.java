@@ -1,6 +1,8 @@
 
 package modelo;
 
+import java.sql.Date;
+
 /**
  *
  * @author MATHEO-PC

@@ -196,6 +196,11 @@ public class Menu extends javax.swing.JFrame {
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReportes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -303,6 +308,11 @@ public class Menu extends javax.swing.JFrame {
         VentasModulo ventanaVentas = new VentasModulo();
         centrar(ventanaVentas);
     }//GEN-LAST:event_btnNuevaVentaActionPerformed
+
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        ReportesModulo ventanaReportes = new ReportesModulo();
+        centrar(ventanaReportes);
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

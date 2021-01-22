@@ -1,8 +1,9 @@
 package vista;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -24,13 +25,14 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     Ventas ventas = new Ventas();
     DetalleVentas detalleVentas = new DetalleVentas();
     DefaultTableModel modeloTabla;
-    DecimalFormat formatoDecimal = new DecimalFormat("0.00");
+    DecimalFormat decimal = new DecimalFormat("0.00");
 
     int idproducto;
     int cantidad;
     double precio;
     double total;
     double totalPagar;
+    String fechaSql;
 
     public VentasModulo() {
         initComponents();
@@ -72,8 +74,13 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     }
 
     private void calendario() {
-        Calendar calendario = Calendar.getInstance();
-        txtFecha.setText(calendario.get(Calendar.DAY_OF_MONTH) + "-" + (calendario.get(Calendar.MONTH) + 1) + "-" + calendario.get(Calendar.YEAR));
+        Date fechaActual = new Date();
+        //SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat gregorian = new SimpleDateFormat("dd-MM-yyyy");
+        // String fechaSqlFormato = formatoSQL.format(fechaActual);
+        String fechaGregorian = gregorian.format(fechaActual);
+        txtFecha.setText(String.valueOf(fechaGregorian));
+        fechaSql = fechaGregorian;
     }
 
     private void generarNumeroSerie() {
@@ -95,7 +102,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
             producto = productoDatos.BuscarProductoPorID(idProducto);
             if (producto.getIdProd() != 0) {
                 txtNombreProducto.setText(producto.getNombreProd());
-                txtPrecio.setText(" " + producto.getPrecio());
+                txtPrecio.setText(Double.toString(producto.getPrecio()));
                 txtStock.setText(Integer.toString(producto.getCantidad()));
             } else {
                 JOptionPane.showMessageDialog(panelComponentes, "El articulo no existe en la base de datos", "No existe", JOptionPane.ERROR_MESSAGE);
@@ -122,8 +129,8 @@ public class VentasModulo extends javax.swing.JInternalFrame {
                 listaProductos.add(idproducto);
                 listaProductos.add(nombrePro);
                 listaProductos.add(cantidad);
-                listaProductos.add(formatoDecimal.format(precio));
-                listaProductos.add(formatoDecimal.format(total));
+                listaProductos.add(String.format("%.2f", precio));
+                listaProductos.add(String.format("%.2f", total));
                 Object[] objDatos = new Object[6];
                 objDatos[0] = listaProductos.get(0);
                 objDatos[1] = listaProductos.get(1);
@@ -133,7 +140,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
                 objDatos[5] = listaProductos.get(5);
                 modeloTabla.addRow(objDatos);
                 totalPagar = totalPagar + total;
-                txtTotalPagar.setText(formatoDecimal.format(totalPagar));
+                txtTotalPagar.setText(decimal.format(totalPagar));
                 limpiarTextoProducto();
 
             } else {
@@ -149,13 +156,11 @@ public class VentasModulo extends javax.swing.JInternalFrame {
             int idv = 1;
             String nombreCliente = txtCliente.getText();
             String serie = txtSerie.getText();
-            String fecha = txtFecha.getText();
             Double monto = totalPagar;
-
             ventas.setIdVendedor(idv);
             ventas.setCliente(nombreCliente);
             ventas.setSerie(serie);
-            ventas.setFecha(fecha);
+            ventas.setFecha(fechaSql);
             ventas.setMonto(monto);
             if (venDatos.guardarVentas(ventas) > 0) {
                 JOptionPane.showMessageDialog(panelComponentes, "Venta Realizada", "Guardado", JOptionPane.INFORMATION_MESSAGE);
@@ -170,20 +175,29 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     }
 
     public void guardarDetalleVentas() {
+        double precioConvertido = 0;
+        double precioTotalConvertido = 0;
         String idVenta = venDatos.idVentas();
         int idventa = Integer.parseInt(idVenta);
         for (int i = 0; i < tablaVentas.getRowCount(); i++) {
             int idprod = Integer.parseInt(tablaVentas.getValueAt(i, 1).toString());
             String nomPro = tablaVentas.getValueAt(i, 2).toString();
             int cant = Integer.parseInt(tablaVentas.getValueAt(i, 3).toString());
-            String fecha = txtFecha.getText();
+            String precioProducto = tablaVentas.getValueAt(i, 4).toString();
+            String precioTotal = tablaVentas.getValueAt(i, 5).toString();
+            if (precioProducto.contains(",")) {
+                precioConvertido = Double.parseDouble(precioProducto.replace(",", ".").trim());
+            }
+            if (precioTotal.contains(",")) {
+                precioTotalConvertido = Double.parseDouble(precioTotal.replace(",", ".").trim());
+            }
             detalleVentas.setIdVentas(idventa);
             detalleVentas.setIdProducto(idprod);
             detalleVentas.setNombrePro(nomPro);
             detalleVentas.setCantidad(cant);
-            detalleVentas.setPrecio(precio);
-            detalleVentas.setTotal(total);
-            detalleVentas.setFecha(fecha);
+            detalleVentas.setPrecio(precioConvertido);
+            detalleVentas.setTotal(precioTotalConvertido);
+            detalleVentas.setFecha(fechaSql);
             venDatos.guardarDetalleVentas(detalleVentas);
         }
     }
@@ -401,6 +415,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         panelComponentes.add(txtCodigoProducto, gridBagConstraints);
 
         txtPrecio.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
