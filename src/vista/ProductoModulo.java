@@ -1,5 +1,6 @@
 package vista;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +16,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
     int idproducto;
     ProductosDatos datosProducto = new ProductosDatos(); //Creo un objeto de la clase datosProductos para tener acceso a los metodos del CRUD
     Producto producto = new Producto(); //Creo un objeto de la clase Producto p
-    DefaultTableModel modeloTabla; //Creo un objeto para hacer un modelo a la tabla producto
+    DefaultTableModel modeloTabla; //Creo un objeto para hacer un modelo a la tabla producto   
 
     public ProductoModulo() {
         initComponents();
@@ -47,6 +48,7 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
     private void listarProductos() { //Metodo para listar los productos en la tabla
         List<Producto> listaProducto = datosProducto.listar();    //Creo un arrayList donde llamo el objeto listar de la clase ProductosDatos
         Object[] datosBaseDatos = new Object[4]; //Creo un arreglo de objeto donde se almacenara los datos obtenido del arrayList 
+        
         for (int i = 0; i < listaProducto.size(); i++) { //El for recorre el tamaño de la lista
             //En cada indice del arreglo, asigno los datos de los productos como id, nombre, precio, cantidad
             datosBaseDatos[0] = listaProducto.get(i).getIdProd();
