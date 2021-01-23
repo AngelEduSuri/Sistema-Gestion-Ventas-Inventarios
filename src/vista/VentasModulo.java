@@ -75,12 +75,12 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
     private void calendario() {
         Date fechaActual = new Date();
-        //SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat gregorian = new SimpleDateFormat("dd-MM-yyyy");
-        // String fechaSqlFormato = formatoSQL.format(fechaActual);
+        String fechaSqlFormato = formatoSQL.format(fechaActual);
         String fechaGregorian = gregorian.format(fechaActual);
         txtFecha.setText(String.valueOf(fechaGregorian));
-        fechaSql = fechaGregorian;
+        fechaSql = fechaSqlFormato;
     }
 
     private void generarNumeroSerie() {
