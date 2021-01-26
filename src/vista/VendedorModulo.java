@@ -8,11 +8,11 @@ import modelo.VendedorDatos;
 
 /**
  *
- * @author MATHEO-PC
+ * @author HERNAN ESTUARDO ZARATE VELASCO
  */
 public class VendedorModulo extends javax.swing.JInternalFrame {
 
-    int idvendedor;
+    int idVendedor;
     VendedorDatos datosVendedor = new VendedorDatos();
     Vendedor vendedor = new Vendedor();
     DefaultTableModel modeloTabla;
@@ -97,7 +97,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
             objDatos[1] = cedulaVen;
             objDatos[2] = nombreVen;
             objDatos[3] = telefonoVen;
-            objDatos[4] = idvendedor;
+            objDatos[4] = idVendedor;
             if (datosVendedor.actualizar(objDatos) > 0) {
                 JOptionPane.showMessageDialog(panelTabla, "Actualizado exitosamente", "Vendedor actualizado", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCajasTexto();
@@ -113,7 +113,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un vendedor", "Seleccione un vendedor", JOptionPane.WARNING_MESSAGE);
         } else {
-            datosVendedor.eliminar(idvendedor);
+            datosVendedor.eliminar(idVendedor);
             JOptionPane.showMessageDialog(panelTabla, "Eliminado correctamente", "Vendedor eliminado", JOptionPane.INFORMATION_MESSAGE);
             limpiarCajasTexto();
             listarVendedor();
@@ -125,7 +125,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un vendedor", "Seleccione un vendedor", JOptionPane.WARNING_MESSAGE);
         } else {
-            idvendedor = Integer.parseInt(tablaVendedor.getValueAt(fila, 0).toString());
+            idVendedor = Integer.parseInt(tablaVendedor.getValueAt(fila, 0).toString());
             String usuairoVen = tablaVendedor.getValueAt(fila, 1).toString();
             String cedulaVen = tablaVendedor.getValueAt(fila, 2).toString();
             String nombreVen = tablaVendedor.getValueAt(fila, 3).toString();
