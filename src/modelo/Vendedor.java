@@ -7,18 +7,18 @@ package modelo;
  */
 public class Vendedor {
     
-    private int id;
+    private int idVendedor;
     private String usuario;
     private String cedula;
     private String nombre;
     private String telefono;
 
-    public int getId() {
-        return id;
+    public int getIdVendedor() {
+        return idVendedor;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVendedor(int idVendedor) {
+        this.idVendedor = idVendedor;
     }
 
     public String getUsuario() {

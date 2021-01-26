@@ -29,7 +29,7 @@ public class VendedorDatos implements Crud {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Vendedor vendedor = new Vendedor();
-                vendedor.setId(rs.getInt(1));
+                vendedor.setIdVendedor(rs.getInt(1));
                 vendedor.setUsuario(rs.getString(2));
                 vendedor.setCedula(rs.getString(3));
                 vendedor.setNombre(rs.getString(4));

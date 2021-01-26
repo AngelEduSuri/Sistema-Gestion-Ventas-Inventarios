@@ -49,7 +49,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
         List<Vendedor> listaVendedor = datosVendedor.listar();
         Object[] ob = new Object[5];
         for (int i = 0; i < listaVendedor.size(); i++) {
-            ob[0] = listaVendedor.get(i).getId();
+            ob[0] = listaVendedor.get(i).getIdVendedor();
             ob[1] = listaVendedor.get(i).getUsuario();
             ob[2] = listaVendedor.get(i).getCedula();
             ob[3] = listaVendedor.get(i).getNombre();
