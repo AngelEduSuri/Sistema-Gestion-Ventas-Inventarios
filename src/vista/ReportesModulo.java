@@ -94,10 +94,9 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
                 System.err.println("Error en: " + ex);
             }
         } else {
-            JOptionPane.showMessageDialog(panelFondo, "Ingrese una fecha para generar el reporte", "Falta rango de fechas", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(panelFondo, "Ingrese una fecha para generar el reporte", "Falta ingresar fechas", JOptionPane.WARNING_MESSAGE);
         }
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
