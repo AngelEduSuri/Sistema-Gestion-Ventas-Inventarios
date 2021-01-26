@@ -3,7 +3,7 @@ package modelo;
 
 /**
  *
- * @author MATHEO-PC
+ * @author HERNAN ESTUARDO ZARATE VELASCO
  */
 public class Vendedor {
     

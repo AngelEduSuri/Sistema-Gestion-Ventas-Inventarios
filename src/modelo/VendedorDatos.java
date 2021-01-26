@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author MATHEO-PC
+ * @author HERNAN ESTUARDO ZARATE VELASCO
  */
 public class VendedorDatos implements Crud {
 
