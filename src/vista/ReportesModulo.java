@@ -1,7 +1,5 @@
 package vista;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +15,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author AngelEdu
+ * @author Erick Fabricio Guayanay
  */
 public class ReportesModulo extends javax.swing.JInternalFrame {
 
@@ -26,9 +24,6 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
 
     public ReportesModulo() {
         initComponents();
-        btnReporteFecha.setEnabled(false);
-
-        cambioCalendario();
     }
 
     private void reporteTotal() {
@@ -43,16 +38,14 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         } catch (JRException ex) {
             System.err.println("Error en: " + ex);
         }
-        fechaSeleccion.setDate(null);
+
         fechaInicio.setDate(null);
         fechaFinal.setDate(null);
     }
 
     private void reportefecha() {
-        if (fechaSeleccion.getDate() == null) {
-            JOptionPane.showMessageDialog(panelFondo, "Ingrese una fecha para buscar", "Falta fecha", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Date fecha = fechaSeleccion.getDate();
+        if (fechaInicio.getDate() != null && fechaFinal.getDate() == null) {
+            Date fecha = fechaInicio.getDate();
             long l = fecha.getTime();
             java.sql.Date fechaConvertida = new java.sql.Date(l);
             JasperReport reporteFecha = null;
@@ -62,28 +55,24 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
                 Map parametro = new HashMap();
                 parametro.put("filtro", fechaConvertida);
                 JasperPrint imprimirReporte = JasperFillManager.fillReport(reporteFecha, parametro, con);
-                JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
-                verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                verReporte.setVisible(true);
+                if (imprimirReporte.getPages().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "No hay registros con ese fecha");
+                } else {
+                    JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
+                    verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    verReporte.setVisible(true);
+                }
+                fechaInicio.setDate(null);
             } catch (JRException ex) {
                 System.err.println("Error en: " + ex);
             }
-        }
-        fechaInicio.setDate(null);
-        fechaFinal.setDate(null);
-    }
-
-    private void rangoFecha() {
-        if (fechaInicio.getDate() == null || fechaFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(panelFondo, "Ingrese una de inicio y fin para buscar", "Falta rango de fechas", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else if (fechaInicio.getDate() != null || fechaFinal.getDate() != null) {
             Date fechaInicioFormato = fechaInicio.getDate();
             Date fechaFinalFormato = fechaFinal.getDate();
             long inicio = fechaInicioFormato.getTime();
             long fechafinal = fechaFinalFormato.getTime();
             java.sql.Date fechaConvertidaInicio = new java.sql.Date(inicio);
             java.sql.Date fechaConvertidaFinal = new java.sql.Date(fechafinal);
-
             JasperReport reporteFechaRango = null;
             String rutaReporteRango = "src\\reportes\\VentasRangoFecha.jasper";
             try {
@@ -92,58 +81,21 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
                 parametro.put("flitroInicio", fechaConvertidaInicio);
                 parametro.put("filtroFinal", fechaConvertidaFinal);
                 JasperPrint imprimirReporte = JasperFillManager.fillReport(reporteFechaRango, parametro, con);
-                JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
-                verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                verReporte.setVisible(true);
+                if (imprimirReporte.getPages().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "No hay registros en ese rango de fechas");
+                } else {
+                    JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
+                    verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    verReporte.setVisible(true);
+                }
+                fechaInicio.setDate(null);
+                fechaFinal.setDate(null);
             } catch (JRException ex) {
                 System.err.println("Error en: " + ex);
             }
+        } else {
+            JOptionPane.showMessageDialog(panelFondo, "Ingrese una fecha para generar el reporte", "Falta rango de fechas", JOptionPane.WARNING_MESSAGE);
         }
-        fechaSeleccion.setDate(null);
-    }
-
-    private void cambioCalendario() {
-        fechaSeleccion.getDateEditor().addPropertyChangeListener(
-                new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (fechaSeleccion.getDate() != null) {
-                    btnReporteFecha.setEnabled(true);
-                } else {
-                    btnReporteFecha.setEnabled(false);
-                }
-
-            }
-        });
-        this.add(fechaSeleccion);
-
-        fechaInicio.getDateEditor().addPropertyChangeListener(
-                new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (fechaInicio.getDate() != null && fechaFinal.getDate() != null) {
-                    btnReporteRango.setEnabled(true);
-                } else {
-                    btnReporteRango.setEnabled(false);
-                }
-
-            }
-        });
-        this.add(fechaInicio);
-
-        fechaFinal.getDateEditor().addPropertyChangeListener(
-                new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (fechaFinal.getDate() != null && fechaInicio.getDate() != null) {
-                    btnReporteRango.setEnabled(true);
-                } else {
-                    btnReporteRango.setEnabled(false);
-                }
-
-            }
-        });
-        this.add(fechaInicio);
     }
 
     @SuppressWarnings("unchecked")
@@ -154,9 +106,6 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         lblTitulo = new javax.swing.JLabel();
         btnreporteTotal = new javax.swing.JButton();
         btnReporteFecha = new javax.swing.JButton();
-        fechaSeleccion = new com.toedter.calendar.JDateChooser();
-        lblFiltro = new javax.swing.JLabel();
-        btnReporteRango = new javax.swing.JButton();
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFinal = new com.toedter.calendar.JDateChooser();
         lblFechaFinal = new javax.swing.JLabel();
@@ -198,22 +147,6 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
             }
         });
 
-        lblFiltro.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
-        lblFiltro.setForeground(new java.awt.Color(255, 255, 255));
-        lblFiltro.setText("Filtrar por fecha");
-
-        btnReporteRango.setBackground(new java.awt.Color(0, 204, 51));
-        btnReporteRango.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnReporteRango.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/calendar.png"))); // NOI18N
-        btnReporteRango.setText("Generar Reporte por Rango");
-        btnReporteRango.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnReporteRango.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        btnReporteRango.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteRangoActionPerformed(evt);
-            }
-        });
-
         lblFechaFinal.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         lblFechaFinal.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaFinal.setText("Fecha Final");
@@ -227,55 +160,36 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         panelFondoLayout.setHorizontalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReporteRango)
-                .addGap(165, 165, 165))
             .addGroup(panelFondoLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addComponent(lblFiltro)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(fechaSeleccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReporteFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(lblFechaInicio))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFechaFinal)
-                            .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnreporteTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(45, 45, 45))))
+                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnReporteFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFechaInicio)
+                    .addComponent(fechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFechaFinal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnreporteTotal)
+                .addGap(49, 49, 49))
         );
         panelFondoLayout.setVerticalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFondoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(lblTitulo)
-                .addGap(27, 27, 27)
-                .addComponent(lblFiltro)
+                .addGap(17, 17, 17)
+                .addComponent(lblFechaInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fechaSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(lblFechaFinal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnReporteFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnreporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFechaFinal)
-                    .addComponent(lblFechaInicio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fechaInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnReporteRango, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(142, 142, 142))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -300,21 +214,13 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         reportefecha();
     }//GEN-LAST:event_btnReporteFechaActionPerformed
 
-    private void btnReporteRangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteRangoActionPerformed
-        rangoFecha();
-    }//GEN-LAST:event_btnReporteRangoActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReporteFecha;
-    private javax.swing.JButton btnReporteRango;
     private javax.swing.JButton btnreporteTotal;
     private com.toedter.calendar.JDateChooser fechaFinal;
     private com.toedter.calendar.JDateChooser fechaInicio;
-    private com.toedter.calendar.JDateChooser fechaSeleccion;
     private javax.swing.JLabel lblFechaFinal;
     private javax.swing.JLabel lblFechaInicio;
-    private javax.swing.JLabel lblFiltro;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panelFondo;
     // End of variables declaration//GEN-END:variables
