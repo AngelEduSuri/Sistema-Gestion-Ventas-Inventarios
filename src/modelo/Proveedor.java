@@ -2,7 +2,7 @@ package modelo;
 
 /**
  *
- * @author MATHEO-PC
+ * @author Oswaldo Aguilar
  */
 public class Proveedor {
 

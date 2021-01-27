@@ -8,7 +8,7 @@ import modelo.ProveedorDatos;
 
 /**
  *
- * @author Angel Suriaga
+ * @author Oswaldo Aguilar
  */
 public class ProveedorModulo extends javax.swing.JInternalFrame {
 

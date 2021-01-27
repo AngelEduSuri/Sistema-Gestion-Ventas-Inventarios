@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Angel Suriaga
+ * @author Oswaldo Aguilar
  */
 public class ProveedorDatos implements Crud {
 
@@ -43,16 +43,16 @@ public class ProveedorDatos implements Crud {
     }
 
     @Override
-    public int add(Object[] o) {
+    public int add(Object[] objProveedor) {
         int resultado = 0;
         final String sql = "INSERT INTO proveedor (cedula_prov, nombre_prov, telefono_prov, productos_prov) VALUES (?,?,?,?)";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, o[0]);
-            ps.setObject(2, o[1]);
-            ps.setObject(3, o[2]);
-            ps.setObject(4, o[3]);
+            ps.setObject(1, objProveedor[0]);
+            ps.setObject(2, objProveedor[1]);
+            ps.setObject(3, objProveedor[2]);
+            ps.setObject(4, objProveedor[3]);
             resultado = ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error en: " + e);
@@ -61,17 +61,17 @@ public class ProveedorDatos implements Crud {
     }
 
     @Override
-    public int actualizar(Object[] obj) {
+    public int actualizar(Object[] objProveedor) {
         int resultado = 0;
         final String sql = "UPDATE proveedor SET cedula_prov = ?, nombre_prov = ?, telefono_prov = ?, productos_prov = ? WHERE id_proveedor = ?";
         try {
             con = conexion.conectar();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, obj[0]);
-            ps.setObject(2, obj[1]);
-            ps.setObject(3, obj[2]);
-            ps.setObject(4, obj[3]);
-            ps.setObject(5, obj[4]);
+            ps.setObject(1, objProveedor[0]);
+            ps.setObject(2, objProveedor[1]);
+            ps.setObject(3, objProveedor[2]);
+            ps.setObject(4, objProveedor[3]);
+            ps.setObject(5, objProveedor[4]);
             resultado = ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error en: " + e);
