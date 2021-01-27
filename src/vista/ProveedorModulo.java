@@ -89,23 +89,28 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         }
     }
 
+    //Metodo para actualizar la lista de proveedores y sus datos
     private void actualizarProveedor() {
-        int fila = tablaProveedor.getSelectedRow();
-        if (fila == -1) {
+        int fila = tablaProveedor.getSelectedRow(); //Comprobamos que hemos seleccionado una fila de la tabla proveedores
+        if (fila == -1) { //Si no esta seleccionada la fila muestra un mensaje pidiendo seleccionarla
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un proveedor", "Seleccione un proveedor", JOptionPane.WARNING_MESSAGE);
         } else {
+            //Obtenemos los datos de las cajas de texto en variable locales
             String cedula = txtCedula.getText();
             String nombre = txtNombres.getText();
             String telefono = txtTelefono.getText();
             String productos = txtProductos.getText();
+            //Las gurdamos en un arreglo de objetos
             Object[] objDatos = new Object[5];
             objDatos[0] = cedula;
             objDatos[1] = nombre;
             objDatos[2] = telefono;
             objDatos[3] = productos;
             objDatos[4] = idProveedor;
-            if (datosProveedor.actualizar(objDatos) > 0) {
+            //Enviarmos ese arreglo al metodo actualizar de la clase proveedor
+            if (datosProveedor.actualizar(objDatos) > 0) { //Si es mayor 0 significa que se actualizo correctamente los datos
                 JOptionPane.showMessageDialog(panelTabla, "Actualizado exitosamente", "Proveedor Actualizado", JOptionPane.INFORMATION_MESSAGE);
+                //Limpiamos las cajas de texto y listamos los proveedores
                 limpiarCajasTexto();
                 listarProveedores();
             } else {
@@ -114,35 +119,40 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         }
     }
     
+    //Metodo para eliminar algun proveedor de la BD
     private void eliminarProveedor() {
-        int fila = tablaProveedor.getSelectedRow();
+        int fila = tablaProveedor.getSelectedRow(); //Comprobamos que este seleccionado algun proveedor de la tabla
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un proveedor", "Seleccione un proveedor", JOptionPane.WARNING_MESSAGE);
         } else {
+            //Envimos el id del proveedor a la consulta sql del metodo eliminar 
             datosProveedor.eliminar(idProveedor);
             JOptionPane.showMessageDialog(panelTabla, "Eliminado correctamente", "Proveedor eliminado", JOptionPane.INFORMATION_MESSAGE);
+            //Limpiamos cajas y listamos la tabla nuevamente
             limpiarCajasTexto();
             listarProveedores();
         }
     }
-    
+    //Metodo para poner agregar los datos de las tablas a las cajas de texto
     private void agregarDatosDeBaseDatosCajasTexto() {
-        int fila = tablaProveedor.getSelectedRow();
+        int fila = tablaProveedor.getSelectedRow(); //Comprobemos que este seleccionado alguna fila de la tabla
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar algun proveedor", "Seleccione un proveedor", JOptionPane.WARNING_MESSAGE);
         } else {
+            //Cojemos los datos de cada fila y en variables locales
             idProveedor = Integer.parseInt(tablaProveedor.getValueAt(fila, 0).toString());
             String cedula = tablaProveedor.getValueAt(fila, 1).toString();
             String nombre = tablaProveedor.getValueAt(fila, 2).toString();
             String telefono = tablaProveedor.getValueAt(fila, 3).toString();
             String productos = tablaProveedor.getValueAt(fila, 4).toString();
+            //Y agregamos ese variables en cada caja de texto
             txtCedula.setText(cedula);
             txtNombres.setText(nombre);
             txtTelefono.setText(telefono);
             txtProductos.setText(productos);
         }
     }     
-
+    //Metodo para limpiar las cajas de texto y refrescar la tabla
     private void limpiarCajasTexto() {
         txtCedula.setText(null);
         txtNombres.setText(null);
