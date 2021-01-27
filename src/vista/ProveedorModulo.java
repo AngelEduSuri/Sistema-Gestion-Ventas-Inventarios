@@ -13,8 +13,8 @@ import modelo.ProveedorDatos;
 public class ProveedorModulo extends javax.swing.JInternalFrame {
 
     int idProveedor;
-    ProveedorDatos datosProveedor = new ProveedorDatos();
-    Proveedor proveedor = new Proveedor();
+    ProveedorDatos datosProveedor = new ProveedorDatos(); //Crear un objeto de la clase proveedor datos donde estan las consultas sql
+    Proveedor proveedor = new Proveedor(); //Se crea el objeto de la clase proveedor donde constan los atritubos
     DefaultTableModel modeloTabla; //Creo un objeto para hacer un modelo a la tabla proveedor
 
     public ProveedorModulo() {
@@ -46,36 +46,41 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         }
     }
 
+    //Metodo para listar los proveedor en la tabla
     private void listarProveedores() {
-        List<Proveedor> lista = datosProveedor.listar();
-        Object[] objProv = new Object[5];
-        for (int i = 0; i < lista.size(); i++) {
+        List<Proveedor> lista = datosProveedor.listar(); //De objeto proveedores los datos se los almacena en una lista de proveedores
+        Object[] objProv = new Object[5]; //Creamos un arreglo de objeto de proveedores para almacenar los valores traido de la BD
+        for (int i = 0; i < lista.size(); i++) { //Recorremos la lista y vamos añadiendo cada dato de la lista en el indice de larreglo
             objProv[0] = lista.get(i).getIdProveedor();
             objProv[1] = lista.get(i).getCedula();
             objProv[2] = lista.get(i).getNombre();
             objProv[3] = lista.get(i).getTelefono();
             objProv[4] = lista.get(i).getProductos();
-            modeloTabla.addRow(objProv);
+            modeloTabla.addRow(objProv); //Con cada dato guardado en el arreglo, asiganmos ese arreglo en el modelo de la tabla en cada fila
         }
-        tablaProveedor.setModel(modeloTabla);
+        tablaProveedor.setModel(modeloTabla); //Y mandamos ese modelo a la tabla para visualizar los datos
     }
 
-    private void agregarProveedor() {
-        if (txtCedula.getText().isEmpty() || txtNombres.getText().isEmpty()) {
+    private void agregarProveedor() { //Metodo que agrega datos nuevos a la BD de proveedores
+        if (txtCedula.getText().isEmpty() || txtNombres.getText().isEmpty()) { //Comprobamos que la caja de texto cedula y nombres no este vacias
             JOptionPane.showMessageDialog(panelTabla, "Debe agregar al menos Cedula y Nombre del proveedor", "Faltan Datos", JOptionPane.WARNING_MESSAGE);
         } else {
+            //Creamos variables locales para guardar los datos extraidos de las cajas de texto
             String cedula = txtCedula.getText();
             String nombre = txtNombres.getText();
             String telefono = txtTelefono.getText();
             String productos = txtProductos.getText();
-
+            
+            //Guardamos esos datos en un arreglo de objetos
             Object[] objDatos = new Object[4];
             objDatos[0] = cedula;
             objDatos[1] = nombre;
             objDatos[2] = telefono;
             objDatos[3] = productos;
-            if (datosProveedor.add(objDatos) > 0) {
+            //Enviamos ese arreglo de objetos a la clase proveedor datos en el metodo add para añadir datos nuevos
+            if (datosProveedor.add(objDatos) > 0) { //El metodo add devuelve un entero mayor a cero cuando la insercion fue correcta
                 JOptionPane.showMessageDialog(panelTabla, "Agregado exitosamente", "Proveedor Agregado", JOptionPane.INFORMATION_MESSAGE);
+                //Finalmente limpiamos las cajas de texto y listamos nuevamente los datos en la tabla
                 limpiarCajasTexto();
                 listarProveedores();
             } else {
