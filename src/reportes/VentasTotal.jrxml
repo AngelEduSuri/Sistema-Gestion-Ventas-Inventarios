@@ -28,23 +28,19 @@ FROM
 	<title>
 		<band height="103" splitType="Stretch">
 			<staticText>
-				<reportElement x="175" y="22" width="278" height="36" uuid="d934e941-140d-4172-ad28-9f7fb3ecff56"/>
+				<reportElement x="102" y="19" width="347" height="43" uuid="d934e941-140d-4172-ad28-9f7fb3ecff56"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="30"/>
+					<font fontName="Arial Rounded MT Bold" size="36"/>
 				</textElement>
 				<text><![CDATA[Reporte de Ventas]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="420" y="75" width="135" height="20" uuid="46a175b3-64cb-4a28-8973-8bd17d409121"/>
+				<reportElement x="420" y="83" width="135" height="20" uuid="46a175b3-64cb-4a28-8973-8bd17d409121"/>
 				<textElement>
-					<font fontName="Arial" size="12" isItalic="true"/>
+					<font fontName="Arial" size="12" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="38" y="0" width="207" height="103" uuid="291e52ea-e28d-4bdc-a0aa-f0ac91e6584f"/>
-				<imageExpression><![CDATA["D:\\Documentos\\NetBeansProjects\\GestionInventarioVentas\\src\\img\\reportes.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

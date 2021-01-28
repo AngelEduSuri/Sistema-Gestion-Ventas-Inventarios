@@ -34,18 +34,21 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="111" splitType="Stretch">
+		<band height="117" splitType="Stretch">
 			<staticText>
-				<reportElement x="145" y="32" width="335" height="54" uuid="85cb4388-826e-4812-a365-a5945f6508be"/>
+				<reportElement x="100" y="22" width="335" height="54" uuid="85cb4388-826e-4812-a365-a5945f6508be"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial Rounded MT Bold" size="36"/>
 				</textElement>
 				<text><![CDATA[Reporte de Ventas]]></text>
 			</staticText>
-			<image>
-				<reportElement x="26" y="0" width="132" height="111" uuid="848da9a4-3fad-4796-919e-28ba708f00fd"/>
-				<imageExpression><![CDATA["D:\\Documentos\\NetBeansProjects\\GestionInventarioVentas\\src\\img\\reportes.jpg"]]></imageExpression>
-			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="424" y="97" width="132" height="20" uuid="d90a4d28-d4fc-4732-b442-430069b58257"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
