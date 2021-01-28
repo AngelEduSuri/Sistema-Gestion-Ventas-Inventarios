@@ -15,7 +15,7 @@ import modelo.VentasDatos;
 
 /**
  *
- * @author Angel Suriaga
+ * @author Angel Eduardo Suriaga
  */
 public class VentasModulo extends javax.swing.JInternalFrame {
 

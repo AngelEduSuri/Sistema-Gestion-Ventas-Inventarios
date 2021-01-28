@@ -9,7 +9,7 @@ import modelo.ProductosDatos;
 
 /**
  *
- * @author MATHEO-PC
+ * @author Karla Minga Herrera
  */
 public class ProductoModulo extends javax.swing.JInternalFrame {
 
@@ -64,15 +64,16 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
     private void agregarBaseDatos() { //Metodo para agregar productos a la base de datos
         if (txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(panelTabla, "Faltan datos por agregar", "Datos Vacios", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else { //Obtengo los datos de las cajas de texto y las guardo en variables locales
             String nombrePro = txtNombre.getText();
             String precio = txtPrecio.getText();
             String cantidad = txtCantidad.getText();
-
+            //Los almaceno en un array de objetos
             Object[] objDatos = new Object[3];
             objDatos[0] = nombrePro;
             objDatos[1] = precio;
             objDatos[2] = cantidad;
+            //Envio esos datos al metodo add de la clase producto
             if (datosProducto.add(objDatos) > 0) {
                 JOptionPane.showMessageDialog(panelTabla, "Agregado correctamente", "Articulo agregado", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCajasTexto();
@@ -82,20 +83,22 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             }
         }
     }
-
-    private void actualizarDatos() {
-        int fila = tablaProductos.getSelectedRow();
+    //Metodo creado para actualizar los datos de los productos
+    private void actualizarDatos() { 
+        int fila = tablaProductos.getSelectedRow(); //Selecciono una fila de la tabla
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else { //Guardo los datos de las cajas en variables
             String nombrePro = txtNombre.getText();
             String precio = txtPrecio.getText();
             String cantidad = txtCantidad.getText();
+            //Los almaceno en un array de objetos
             Object[] objDatos = new Object[4];
             objDatos[0] = nombrePro;
             objDatos[1] = precio;
             objDatos[2] = cantidad;
             objDatos[3] = idproducto;
+            //Envio dicho array en el metodo actualizar de la clase producto
             if (datosProducto.actualizar(objDatos) > 0) {
                 JOptionPane.showMessageDialog(panelTabla, "Actualizado correctamente", "Articulo actualizado", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCajasTexto();
@@ -105,28 +108,31 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    //Metodo para eliminar un producto
     private void eliminarProducto() {
         int fila = tablaProductos.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar un articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else { //Envio la id del producto al metodo eliminar de la clase producto
             datosProducto.eliminar(idproducto);
             JOptionPane.showMessageDialog(panelTabla, "Eliminado correctamente", "Articulo eliminado", JOptionPane.INFORMATION_MESSAGE);
             limpiarCajasTexto();
             listarProductos();
         }
     }
-
+    
+    //Metodo para agregar las filas de las tablas en cada caja de texto
     private void agregarDatosDeBaseDatosCajasTexto() {
         int fila = tablaProductos.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(panelTabla, "Debe seleccionar algun articulo", "Seleccione un articulo", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else { 
+            //Obtengo lo datos de esa fila
             idproducto = Integer.parseInt(tablaProductos.getValueAt(fila, 0).toString());
             String nombrePro = tablaProductos.getValueAt(fila, 1).toString();
             String precio = tablaProductos.getValueAt(fila, 2).toString();
             String cantidad = tablaProductos.getValueAt(fila, 3).toString();
+            //Envios esos datos a las cajas de texto
             txtNombre.setText(nombrePro);
             txtPrecio.setText(precio);
             txtCantidad.setText(cantidad);
