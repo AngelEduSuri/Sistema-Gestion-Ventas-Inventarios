@@ -26,13 +26,14 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         initComponents();
     }
 
+    //Metodo para llamar al objeto JasperReport que contiene todos los datos de ventas
     private void reporteTotal() {
         JasperReport reporte = null;
-        String rutaReporte = "src\\reportes\\VentasTotal.jasper";
+        String rutaReporte = "src\\reportes\\VentasTotal.jasper"; //Agrego la ruta del archivo jasper
         try {
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaReporte);
-            JasperPrint imprimirReporte = JasperFillManager.fillReport(reporte, null, con);
-            JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaReporte); //Cargo esa ruta, al objeto JasperReport
+            JasperPrint imprimirReporte = JasperFillManager.fillReport(reporte, null, con); //Envio el objeto y la conexion
+            JasperViewer verReporte = new JasperViewer(imprimirReporte, false); //Muestro todo el reporte con los datos
             verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             verReporte.setVisible(true);
         } catch (JRException ex) {
@@ -43,57 +44,63 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         fechaFinal.setDate(null);
     }
 
+    //Metodo para llamar al objeto JasperReport por rangos de fechas
     private void reportefecha() {
-        if (fechaInicio.getDate() != null && fechaFinal.getDate() == null) {
-            Date fecha = fechaInicio.getDate();
-            long l = fecha.getTime();
-            java.sql.Date fechaConvertida = new java.sql.Date(l);
-            JasperReport reporteFecha = null;
-            String rutaReporte = "src\\reportes\\VentasFecha.jasper";
+        if (fechaInicio.getDate() != null && fechaFinal.getDate() == null) { //Compruebo que el componente fecha de inicio este vacion
+            Date fecha = fechaInicio.getDate(); //Si no esta vacion obtengo la fecha del componente
+            long l = fecha.getTime(); //Obtengo la fecha completa y lo guardo en una variable long
+            java.sql.Date fechaConvertida = new java.sql.Date(l); //Convierto la fecha en un tipo de dato Dato sql para usarlo como parametro de busqueda
+            JasperReport reporteFecha = null; //Creo un objeto de tipo JasperReport
+            String rutaReporte = "src\\reportes\\VentasFecha.jasper"; //Señalo la ruta relativa donde esta el objeto reporte
             try {
-                reporteFecha = (JasperReport) JRLoader.loadObjectFromFile(rutaReporte);
-                Map parametro = new HashMap();
-                parametro.put("filtro", fechaConvertida);
-                JasperPrint imprimirReporte = JasperFillManager.fillReport(reporteFecha, parametro, con);
-                if (imprimirReporte.getPages().isEmpty()) {
-                    JOptionPane.showMessageDialog(rootPane, "No hay registros con ese fecha");
-                } else {
-                    JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
+                reporteFecha = (JasperReport) JRLoader.loadObjectFromFile(rutaReporte); //Cargo esa ruta al objeto JasperReport
+                Map parametro = new HashMap(); //Hago un mapeo de los datos
+                parametro.put("filtro", fechaConvertida); //Agrego como parametro de busqueda la fecha de inicio
+                JasperPrint imprimirReporte = JasperFillManager.fillReport(reporteFecha, parametro, con); //Envio el parametro, el objeto JasperReport y la conexion
+                if (imprimirReporte.getPages().isEmpty()) { //Compruebo si esta vacio el reporte
+                    JOptionPane.showMessageDialog(rootPane, "No hay registros con ese fecha"); //Si esta vacio muestro un mensaje 
+                } else {//Si no esta vacio muestro el reporte
+                    JasperViewer verReporte = new JasperViewer(imprimirReporte, false); //
                     verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     verReporte.setVisible(true);
                 }
-                fechaInicio.setDate(null);
+                fechaInicio.setDate(null); //Reseteo el componente fecha inicio una vez cierre el reporte
             } catch (JRException ex) {
                 System.err.println("Error en: " + ex);
             }
-        } else if (fechaInicio.getDate() != null || fechaFinal.getDate() != null) {
+        } else if (fechaInicio.getDate() != null || fechaFinal.getDate() != null) { //Compruebo que la fecha inicio y fecha final no esten vacias
+            //Obtengo ambas fechas 
             Date fechaInicioFormato = fechaInicio.getDate();
             Date fechaFinalFormato = fechaFinal.getDate();
+            //Paso ambas fechas a variable de tipo long
             long inicio = fechaInicioFormato.getTime();
             long fechafinal = fechaFinalFormato.getTime();
+            //Las convierto en tipo date sql para usarlos como parametros
             java.sql.Date fechaConvertidaInicio = new java.sql.Date(inicio);
             java.sql.Date fechaConvertidaFinal = new java.sql.Date(fechafinal);
-            JasperReport reporteFechaRango = null;
-            String rutaReporteRango = "src\\reportes\\VentasRangoFecha.jasper";
+            JasperReport reporteFechaRango = null; //Creo el objeto JasperReport
+            String rutaReporteRango = "src\\reportes\\VentasRangoFecha.jasper"; //Obtengo la ruta relativa del reporte
             try {
-                reporteFechaRango = (JasperReport) JRLoader.loadObjectFromFile(rutaReporteRango);
-                Map parametro = new HashMap();
-                parametro.put("flitroInicio", fechaConvertidaInicio);
+                reporteFechaRango = (JasperReport) JRLoader.loadObjectFromFile(rutaReporteRango); //Envio esa ruta al objeto JasperReport
+                Map parametro = new HashMap(); //Mapeo de los datos
+                //Creo los parametros para fecha inicio y final para generar el rango de reporte
+                parametro.put("flitroInicio", fechaConvertidaInicio); 
                 parametro.put("filtroFinal", fechaConvertidaFinal);
-                JasperPrint imprimirReporte = JasperFillManager.fillReport(reporteFechaRango, parametro, con);
-                if (imprimirReporte.getPages().isEmpty()) {
+                JasperPrint imprimirReporte = JasperFillManager.fillReport(reporteFechaRango, parametro, con); //Envio dichos parametros con la conexion
+                if (imprimirReporte.getPages().isEmpty()) { //Compruebo que no este vacion el reporte
                     JOptionPane.showMessageDialog(rootPane, "No hay registros en ese rango de fechas");
-                } else {
+                } else { //Si no esta vacio, lo muestra
                     JasperViewer verReporte = new JasperViewer(imprimirReporte, false);
                     verReporte.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     verReporte.setVisible(true);
                 }
-                fechaInicio.setDate(null);
+                //Reseto las fechas una vez que cierre el reporte
+                fechaInicio.setDate(null); 
                 fechaFinal.setDate(null);
             } catch (JRException ex) {
                 System.err.println("Error en: " + ex);
             }
-        } else {
+        } else { //Si no hay ninguna fecha agregada, el mensaje pide que ingrese una
             JOptionPane.showMessageDialog(panelFondo, "Ingrese una fecha para generar el reporte", "Falta ingresar fechas", JOptionPane.WARNING_MESSAGE);
         }
     }

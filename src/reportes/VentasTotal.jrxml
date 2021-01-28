@@ -34,10 +34,6 @@ FROM
 				</textElement>
 				<text><![CDATA[Reporte de Ventas]]></text>
 			</staticText>
-			<image>
-				<reportElement x="28" y="0" width="135" height="95" uuid="1c0a5ec5-d189-4994-b278-ca68cc971506"/>
-				<imageExpression><![CDATA["D:\\Documentos\\NetBeansProjects\\GestionInventarioVentas\\src\\img\\reportes.jpg"]]></imageExpression>
-			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="420" y="75" width="135" height="20" uuid="46a175b3-64cb-4a28-8973-8bd17d409121"/>
 				<textElement>
@@ -45,6 +41,10 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="38" y="0" width="207" height="103" uuid="291e52ea-e28d-4bdc-a0aa-f0ac91e6584f"/>
+				<imageExpression><![CDATA["D:\\Documentos\\NetBeansProjects\\GestionInventarioVentas\\src\\img\\reportes.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
