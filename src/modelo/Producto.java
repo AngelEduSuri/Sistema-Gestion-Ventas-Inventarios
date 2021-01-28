@@ -2,15 +2,17 @@ package modelo;
 
 /**
  *
- * @author MATHEO-PC
+ * @author Karla Minga Herrera
  */
 public class Producto {
-
+    //Variables para los objetos productos
     private int idProd;
     private String nombreProd;
     private double precio;
     private int cantidad;
-
+    
+    
+    //Se crean los metodos get y set para asignar y obtener los datos
     public int getIdProd() {
         return idProd;
     }

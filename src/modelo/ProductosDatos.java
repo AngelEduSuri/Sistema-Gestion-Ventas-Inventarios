@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author MATHEO-PC
+ * @author Karla Minga Herrera
  */
 public class ProductosDatos implements Crud {
 
