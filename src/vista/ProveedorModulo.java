@@ -197,12 +197,12 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
 
         lblCedula.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
         lblCedula.setForeground(new java.awt.Color(255, 255, 255));
-        lblCedula.setText("Cédula:");
+        lblCedula.setText("Cédula (RUC):");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 15);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 5);
         panelCajas.add(lblCedula, gridBagConstraints);
 
         lblNombres.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
@@ -212,7 +212,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 15);
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 5);
         panelCajas.add(lblNombres, gridBagConstraints);
 
         lblTelefono.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
@@ -222,7 +222,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 15);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         panelCajas.add(lblTelefono, gridBagConstraints);
 
         txtCedula.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
@@ -338,7 +338,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 15);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         panelCajas.add(lblProductos, gridBagConstraints);
 
         txtProductos.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
