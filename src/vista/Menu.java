@@ -9,7 +9,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author AngelEdu
+ * @author Angel Eduardo Suriaga
  */
 public class Menu extends javax.swing.JFrame {
 

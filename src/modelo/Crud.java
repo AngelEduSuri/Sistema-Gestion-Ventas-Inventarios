@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author AngelEdu
+ * @author Angel Eduardo Suriaga
  */
 public interface Crud {
         

@@ -3,7 +3,7 @@ package modelo;
 
 /**
  *
- * @author MATHEO-PC
+ * @author Angel Eduardo Suriaga
  */
 public class Ventas {
     

@@ -5,7 +5,7 @@ import java.sql.Date;
 
 /**
  *
- * @author Angel Suriaga
+ * @author Angel Eduardo Suriaga
  */
 public class DetalleVentas {
     

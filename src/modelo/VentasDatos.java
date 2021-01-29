@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Angel Suriaga
+ * @author Angel Eduardo Suriaga
  */
 public class VentasDatos {
 
