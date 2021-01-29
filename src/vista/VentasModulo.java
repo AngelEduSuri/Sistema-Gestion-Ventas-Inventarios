@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,7 @@ import modelo.VentasDatos;
  */
 public class VentasModulo extends javax.swing.JInternalFrame {
 
+    DefaultComboBoxModel modeloCombo;
     Producto producto = new Producto();
     ProductosDatos productoDatos = new ProductosDatos();
     VentasDatos venDatos = new VentasDatos();
@@ -27,8 +30,9 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     DefaultTableModel modeloTabla;
     DecimalFormat decimal = new DecimalFormat("0.00");
 
-    int idproducto;
+    int idProd;
     int cantidad;
+    int stock;
     double precio;
     double total;
     double totalPagar;
@@ -94,21 +98,29 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         }
     }
 
-    private void buscarProducto() {
-        if (txtCodigoProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(panelComponentes, "Debe ingresar el codigo del producto", "Falta codigo", JOptionPane.WARNING_MESSAGE);
+    private void buscarProductoNombre() {
+        if (txtBuscarProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(panelComponentes, "Debe ingresar un nombre del producto a buscar", "Falta nombre", JOptionPane.WARNING_MESSAGE);
         } else {
-            int idProducto = Integer.parseInt(txtCodigoProducto.getText());
-            producto = productoDatos.BuscarProductoPorID(idProducto);
-            if (producto.getIdProd() != 0) {
-                txtNombreProducto.setText(producto.getNombreProd());
-                txtPrecio.setText(Double.toString(producto.getPrecio()));
-                txtStock.setText(Integer.toString(producto.getCantidad()));
+            String buscarProducto = txtBuscarProducto.getText();
+            Vector<Producto> vectorProducto = new Vector<>();
+            vectorProducto = productoDatos.buscarProductoNombre(buscarProducto);
+            if (vectorProducto.isEmpty()) {
+                JOptionPane.showMessageDialog(panelComponentes, "No existe ese articulo", "No se encontro", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(panelComponentes, "El articulo no existe en la base de datos", "No existe", JOptionPane.ERROR_MESSAGE);
-                txtCodigoProducto.requestFocus();
+                modeloCombo = new DefaultComboBoxModel(vectorProducto);
+                comboProductos.setModel(modeloCombo);
             }
+
         }
+    }
+
+    private void seleccionarProductoComboBox() {
+        Producto productoActual = (Producto) comboProductos.getSelectedItem();
+        txtIdPro.setText(String.valueOf(productoActual.getIdProd()));
+        txtNombreProducto.setText(productoActual.getNombreProd());
+        txtStock.setText(String.valueOf(productoActual.getCantidad()));
+        txtPrecio.setText(String.valueOf(productoActual.getPrecio()));
     }
 
     public void agregarProductoTabla() {
@@ -117,16 +129,16 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         } else {
             int item = 0;
             item = item + 1;
-            idproducto = producto.getIdProd();
+            idProd = Integer.parseInt(txtIdPro.getText());
             String nombrePro = txtNombreProducto.getText();
             precio = Double.parseDouble(txtPrecio.getText());
             cantidad = Integer.parseInt(cantidadCompra.getValue().toString());
-            int stock = Integer.parseInt(txtStock.getText());
+            stock = Integer.parseInt(txtStock.getText());
             total = cantidad * precio;
             ArrayList listaProductos = new ArrayList();
             if (stock > 0) {
                 listaProductos.add(item);
-                listaProductos.add(idproducto);
+                listaProductos.add(idProd);
                 listaProductos.add(nombrePro);
                 listaProductos.add(cantidad);
                 listaProductos.add(String.format("%.2f", precio));
@@ -166,8 +178,8 @@ public class VentasModulo extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(panelComponentes, "Venta Realizada", "Guardado", JOptionPane.INFORMATION_MESSAGE);
                 guardarDetalleVentas();
                 actualizarStock();
-                limpiarVenta();
                 generarNumeroSerie();
+                limpiarVenta();
             } else {
                 JOptionPane.showMessageDialog(panelComponentes, "No se guardo la venta", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -203,34 +215,43 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     }
 
     public void actualizarStock() {
+        int idproducto;
+        int datosRecibidos[] = new int[2];
+        int idActualizar;
+        int cant;
+        int cantidadGuardada;
+        int stockActual;
         for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            Producto prod = new Producto();
             idproducto = Integer.parseInt(tablaVentas.getValueAt(i, 1).toString());
-            cantidad = Integer.parseInt(tablaVentas.getValueAt(i, 3).toString());
-            prod = productoDatos.BuscarProductoPorID(idproducto);
-            int stockActual = prod.getCantidad() - cantidad;
-            productoDatos.actualizarStock(stockActual, idproducto);
+            datosRecibidos = productoDatos.BuscarProductoPorID(idproducto);
+            idActualizar = datosRecibidos[0];
+            cant = datosRecibidos[1];
+            cantidadGuardada = productoDatos.obtenerStockActual(idActualizar);           
+            stockActual = cantidadGuardada - cant;
+            productoDatos.actualizarStock(stockActual, idActualizar);
         }
     }
 
     public void limpiarVenta() {
         txtCliente.setText(null);
-        txtCodigoProducto.setText(null);
+        txtBuscarProducto.setText(null);
         txtNombreProducto.setText(null);
         txtPrecio.setText(null);
         txtStock.setText(null);
         cantidadCompra.setValue(1);
         txtTotalPagar.setText(null);
+        txtIdPro.setText(null);
         modeloTabla.setRowCount(0);
     }
 
     private void limpiarTextoProducto() {
-        txtCodigoProducto.setText(null);
+        txtBuscarProducto.setText(null);
         txtNombreProducto.setText(null);
         txtPrecio.setText(null);
         txtStock.setText(null);
         cantidadCompra.setValue(1);
-        txtCodigoProducto.requestFocus();
+        txtBuscarProducto.requestFocus();
+        txtIdPro.setText(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -253,7 +274,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         lblPrecio = new javax.swing.JLabel();
         lblCantidad = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
-        txtCodigoProducto = new javax.swing.JTextField();
+        txtBuscarProducto = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         cantidadCompra = new javax.swing.JSpinner();
         btnBuscarProducto = new javax.swing.JButton();
@@ -265,6 +286,10 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         txtNombreProducto = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         txtVendedor = new javax.swing.JTextField();
+        lblBuscar = new javax.swing.JLabel();
+        txtIdPro = new javax.swing.JTextField();
+        lblNombreProducto = new javax.swing.JLabel();
+        comboProductos = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVentas = new javax.swing.JTable();
@@ -276,8 +301,9 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Modulo Ventas");
-        setMinimumSize(new java.awt.Dimension(650, 700));
-        setPreferredSize(new java.awt.Dimension(650, 700));
+        setMaximumSize(new java.awt.Dimension(732, 730));
+        setMinimumSize(new java.awt.Dimension(732, 730));
+        setPreferredSize(new java.awt.Dimension(732, 730));
 
         panelFondo.setBackground(new java.awt.Color(51, 71, 91));
 
@@ -361,17 +387,17 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblCliente, gridBagConstraints);
 
         lblCodigoProducto.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblCodigoProducto.setForeground(new java.awt.Color(255, 255, 255));
-        lblCodigoProducto.setText("Cod. Producto:");
+        lblCodigoProducto.setText("Codigo:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblCodigoProducto, gridBagConstraints);
 
         lblPrecio.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -379,9 +405,9 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         lblPrecio.setText("Precio:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblPrecio, gridBagConstraints);
 
         lblCantidad.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -389,9 +415,9 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         lblCantidad.setText("Cantidad:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblCantidad, gridBagConstraints);
 
         txtCliente.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
@@ -404,23 +430,23 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelComponentes.add(txtCliente, gridBagConstraints);
 
-        txtCodigoProducto.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtBuscarProducto.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        panelComponentes.add(txtCodigoProducto, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelComponentes.add(txtBuscarProducto, gridBagConstraints);
 
         txtPrecio.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtPrecio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipadx = 40;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(txtPrecio, gridBagConstraints);
@@ -428,8 +454,8 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         cantidadCompra.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 30;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.ipadx = 40;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
@@ -446,7 +472,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(3, 5, 3, 5);
@@ -463,7 +489,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(2, 5, 2, 5);
@@ -474,7 +500,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         txtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 5;
@@ -483,10 +509,10 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
         lblProducto.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblProducto.setForeground(new java.awt.Color(255, 255, 255));
-        lblProducto.setText("Prod:");
+        lblProducto.setText("Nombre Prod:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblProducto, gridBagConstraints);
@@ -496,7 +522,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         lblStock.setText("Stock:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblStock, gridBagConstraints);
@@ -506,7 +532,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         lblVendedor.setText("Vendedor:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelComponentes.add(lblVendedor, gridBagConstraints);
@@ -515,34 +541,81 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         txtNombreProducto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 155;
+        gridBagConstraints.ipadx = 280;
         gridBagConstraints.ipady = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelComponentes.add(txtNombreProducto, gridBagConstraints);
 
         txtStock.setEditable(false);
         txtStock.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 155;
+        gridBagConstraints.ipadx = 280;
         gridBagConstraints.ipady = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
         panelComponentes.add(txtStock, gridBagConstraints);
 
         txtVendedor.setEditable(false);
         txtVendedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 155;
+        gridBagConstraints.ipadx = 280;
         gridBagConstraints.ipady = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
         panelComponentes.add(txtVendedor, gridBagConstraints);
+
+        lblBuscar.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        lblBuscar.setText("Buscar:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        panelComponentes.add(lblBuscar, gridBagConstraints);
+
+        txtIdPro.setEditable(false);
+        txtIdPro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtIdPro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        panelComponentes.add(txtIdPro, gridBagConstraints);
+
+        lblNombreProducto.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblNombreProducto.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreProducto.setText("Producto:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        panelComponentes.add(lblNombreProducto, gridBagConstraints);
+
+        comboProductos.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        comboProductos.setMaximumSize(new java.awt.Dimension(250, 32767));
+        comboProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProductosActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelComponentes.add(comboProductos, gridBagConstraints);
 
         panelTabla.setBackground(new java.awt.Color(51, 71, 91));
         panelTabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -597,7 +670,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -618,7 +691,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         panelVenta.add(btnLimipiarTodo, gridBagConstraints);
@@ -636,6 +709,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 15;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelVenta.add(btnGenerarVenta, gridBagConstraints);
@@ -656,7 +730,6 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 120;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -666,13 +739,13 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         panelFondo.setLayout(panelFondoLayout);
         panelFondoLayout.setHorizontalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
+            .addGroup(panelFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelComponentes, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                    .addComponent(panelTitulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelTabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTitulos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelComponentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFondoLayout.setVerticalGroup(
@@ -681,11 +754,11 @@ public class VentasModulo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(panelTitulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -704,7 +777,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
-        buscarProducto();
+        buscarProductoNombre();
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
@@ -719,6 +792,10 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         guardarVenta();
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
+    private void comboProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProductosActionPerformed
+        seleccionarProductoComboBox();
+    }//GEN-LAST:event_comboProductosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
@@ -726,13 +803,16 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGenerarVenta;
     private javax.swing.JButton btnLimipiarTodo;
     private javax.swing.JSpinner cantidadCompra;
+    private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCodigoProducto;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblSerie;
@@ -747,9 +827,10 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelTitulos;
     private javax.swing.JPanel panelVenta;
     private javax.swing.JTable tablaVentas;
+    private javax.swing.JTextField txtBuscarProducto;
     private javax.swing.JTextField txtCliente;
-    private javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtIdPro;
     private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtSerie;
