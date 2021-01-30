@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import modelo.Vendedor;
 
 /**
  *
@@ -20,14 +21,27 @@ public class Menu extends javax.swing.JFrame {
     VentasModulo ventanaVentas;
     ReportesModulo ventanaReportes;
     public static int contador = 0;
-
+    public static Vendedor vendedor;
+    
     public Menu() {
         initComponents();
         ventana(); //Llamamos al metodo en el constructor para aplicar las caracteristicas
         iconoBotones();
-
     }
-
+    
+    //Segundo constructor que recibe los datos del vendedor
+    public Menu(Vendedor vendedor){
+        initComponents();
+        ventana(); //Llamamos al metodo en el constructor para aplicar las caracteristicas
+        iconoBotones();
+        Menu.vendedor = vendedor;
+        lblMensajeUsuario.setText("Bienvenido: " + vendedor.getNombre());
+       if(!vendedor.getUsuario().equals("administrador")){
+            btnVendedor.setEnabled(false);
+            btnReportes.setEnabled(false);
+       }          
+    }
+    
     private void ventana() { //Metodo para inicializar la ventana maximizada y con titulo
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS - MI PAPELERIA");
@@ -94,6 +108,7 @@ public class Menu extends javax.swing.JFrame {
         btnProveedor = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        lblMensajeUsuario = new javax.swing.JLabel();
         panelVentana = new javax.swing.JPanel();
         ImageIcon fondo = new ImageIcon(getClass().getResource("/img/papeleria.jpg"));
         Image img = fondo.getImage();
@@ -127,7 +142,7 @@ public class Menu extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -148,7 +163,7 @@ public class Menu extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -169,7 +184,7 @@ public class Menu extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -190,6 +205,7 @@ public class Menu extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -210,7 +226,7 @@ public class Menu extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -231,12 +247,26 @@ public class Menu extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
         panelBotones.add(btnSalir, gridBagConstraints);
+
+        lblMensajeUsuario.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        lblMensajeUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblMensajeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMensajeUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lblMensajeUsuario.setPreferredSize(new java.awt.Dimension(150, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        panelBotones.add(lblMensajeUsuario, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -252,7 +282,7 @@ public class Menu extends javax.swing.JFrame {
         ventanaModulos.setLayout(ventanaModulosLayout);
         ventanaModulosLayout.setHorizontalGroup(
             ventanaModulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
         );
         ventanaModulosLayout.setVerticalGroup(
             ventanaModulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +316,7 @@ public class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -359,6 +389,7 @@ public class Menu extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
         try {
 
             UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
@@ -371,7 +402,6 @@ public class Menu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -388,6 +418,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVendedor;
+    private javax.swing.JLabel lblMensajeUsuario;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelVentana;

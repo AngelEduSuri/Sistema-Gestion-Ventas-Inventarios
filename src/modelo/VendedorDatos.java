@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -90,5 +92,30 @@ public class VendedorDatos implements Crud {
         } catch (SQLException e) {
             System.err.println("Error en: " + e);
         }
+    }
+
+    public boolean iniciarSesion(Vendedor vendedor) {
+        final String sql = "SELECT idvendedor, usuario, cedula, nombre, telefono FROM vendedor WHERE usuario=?";
+        try {
+            con = conexion.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, vendedor.getUsuario());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                if ((vendedor.getCedula().equals(rs.getString(3)))) {
+                    vendedor.setIdVendedor(rs.getInt("idvendedor"));
+                    vendedor.setNombre(rs.getString("nombre"));
+                    vendedor.setTelefono(rs.getString("telefono"));
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println("Error en: " + e);
+            return false;
+        }
+
     }
 }

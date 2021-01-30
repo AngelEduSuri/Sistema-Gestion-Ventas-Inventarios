@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.DetalleVentas;
 import modelo.Producto;
 import modelo.ProductosDatos;
+import modelo.Vendedor;
 import modelo.Ventas;
 import modelo.VentasDatos;
 
@@ -96,6 +97,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
             incremento = incremento + 1;
             txtSerie.setText("00000" + incremento);
         }
+        txtVendedor.setText(Menu.vendedor.getNombre());
     }
 
     private void buscarProductoNombre() {
@@ -165,7 +167,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         if (txtTotalPagar.getText().isEmpty()) {
             JOptionPane.showMessageDialog(panelComponentes, "Agrege productos para hacer la venta", "Agregar productos", JOptionPane.WARNING_MESSAGE);
         } else {
-            int idv = 1;
+            int idv = Menu.vendedor.getIdVendedor();
             String nombreCliente = txtCliente.getText();
             String serie = txtSerie.getText();
             Double monto = totalPagar;

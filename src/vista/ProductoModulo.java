@@ -12,7 +12,6 @@ import modelo.ProductosDatos;
  */
 public class ProductoModulo extends javax.swing.JInternalFrame {
 
-    Menu menu = new Menu();
     int idproducto;
     ProductosDatos datosProducto = new ProductosDatos(); //Creo un objeto de la clase datosProductos para tener acceso a los metodos del CRUD
     Producto producto = new Producto(); //Creo un objeto de la clase Producto p

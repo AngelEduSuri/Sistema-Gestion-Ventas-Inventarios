@@ -170,6 +170,10 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
             }
         });
 
+        fechaInicio.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        fechaFinal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
         lblFechaFinal.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         lblFechaFinal.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaFinal.setText("Fecha Final");
