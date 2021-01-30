@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -12,6 +13,13 @@ import javax.swing.UIManager;
  * @author Angel Eduardo Suriaga
  */
 public class Menu extends javax.swing.JFrame {
+
+    ProductoModulo ventanaProducto;
+    ProveedorModulo ventanaProveedor;
+    VendedorModulo ventanaVendedor;
+    VentasModulo ventanaVentas;
+    ReportesModulo ventanaReportes;
+    public static int contador = 0;
 
     public Menu() {
         initComponents();
@@ -289,28 +297,60 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        ProductoModulo ventanaProducto = new ProductoModulo();
-        centrar(ventanaProducto);
+        if (contador == 0 && ventanaProducto == null) {
+            ventanaProducto = new ProductoModulo();
+            centrar(ventanaProducto);
+            contador++;
+            ventanaProducto = null;
+        } else {
+            JOptionPane.showMessageDialog(panelVentana, "Un modulo ya se encuentra abierto", "Abierto", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedorActionPerformed
-        ProveedorModulo ventanaProveedor = new ProveedorModulo();
-        centrar(ventanaProveedor);
+        if (contador == 0 && ventanaProveedor == null) {
+            ventanaProveedor = new ProveedorModulo();
+            centrar(ventanaProveedor);
+            contador++;
+            ventanaProveedor = null;
+        } else {
+            JOptionPane.showMessageDialog(panelVentana, "Un modulo ya se encuentra abierto", "Abierto", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnProveedorActionPerformed
 
     private void btnVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorActionPerformed
-        VendedorModulo ventanaVendedor = new VendedorModulo();
-        centrar(ventanaVendedor);
+        if (contador == 0 && ventanaVendedor == null) {
+            ventanaVendedor = new VendedorModulo();
+            centrar(ventanaVendedor);
+            contador++;
+            ventanaVendedor = null;
+        } else {
+            JOptionPane.showMessageDialog(panelVentana, "Un modulo ya se encuentra abierto", "Abierto", JOptionPane.WARNING_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnVendedorActionPerformed
 
     private void btnNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVentaActionPerformed
-        VentasModulo ventanaVentas = new VentasModulo();
-        centrar(ventanaVentas);
+        if (contador == 0 && ventanaVentas == null) {
+            ventanaVentas = new VentasModulo();
+            centrar(ventanaVentas);
+            contador++;
+            ventanaVentas = null;
+        } else {
+            JOptionPane.showMessageDialog(panelVentana, "Un modulo ya se encuentra abierto", "Abierto", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnNuevaVentaActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        ReportesModulo ventanaReportes = new ReportesModulo();
-        centrar(ventanaReportes);
+        if (contador == 0 && ventanaReportes == null) {
+            ventanaReportes = new ReportesModulo();
+            centrar(ventanaReportes);
+            contador++;
+            ventanaReportes = null;
+        } else {
+            JOptionPane.showMessageDialog(panelVentana, "Un modulo ya se encuentra abierto", "Abierto", JOptionPane.WARNING_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnReportesActionPerformed
 
     public static void main(String args[]) {

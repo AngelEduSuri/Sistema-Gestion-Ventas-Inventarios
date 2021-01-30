@@ -304,6 +304,23 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         setMaximumSize(new java.awt.Dimension(732, 730));
         setMinimumSize(new java.awt.Dimension(732, 730));
         setPreferredSize(new java.awt.Dimension(732, 730));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         panelFondo.setBackground(new java.awt.Color(51, 71, 91));
 
@@ -431,6 +448,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         panelComponentes.add(txtCliente, gridBagConstraints);
 
         txtBuscarProducto.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtBuscarProducto.setToolTipText("Ingrese el nombre del articulo");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -795,6 +813,12 @@ public class VentasModulo extends javax.swing.JInternalFrame {
     private void comboProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProductosActionPerformed
         seleccionarProductoComboBox();
     }//GEN-LAST:event_comboProductosActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        if (evt.getInternalFrame().isClosable()) {
+            Menu.contador = 0;
+        }
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

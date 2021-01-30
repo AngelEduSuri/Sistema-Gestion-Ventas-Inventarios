@@ -121,6 +121,23 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
         setTitle("Reporte de Ventas");
         setMinimumSize(new java.awt.Dimension(530, 450));
         setPreferredSize(new java.awt.Dimension(530, 450));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         panelFondo.setBackground(new java.awt.Color(51, 71, 91));
 
@@ -219,6 +236,12 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
     private void btnReporteFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteFechaActionPerformed
         reportefecha();
     }//GEN-LAST:event_btnReporteFechaActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        if (evt.getInternalFrame().isClosable()) {
+            Menu.contador = 0;
+        }
+    }//GEN-LAST:event_formInternalFrameClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReporteFecha;

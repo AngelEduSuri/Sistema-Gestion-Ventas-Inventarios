@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Angel Eduardo Suriaga
+ * @author Karla Minga Herrera
  */
 public class Conexion {
     
@@ -16,7 +16,7 @@ public class Conexion {
     String user = "root";
     String password = "abc123";
 
-    public Connection conectar() { //Metedo que retorna la conexion a la base de datos
+    public Connection conectar() { //Metodo que retorna la conexion a la base de datos
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);

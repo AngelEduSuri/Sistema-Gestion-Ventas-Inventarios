@@ -70,7 +70,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
             String nombre = txtNombres.getText();
             String telefono = txtTelefono.getText();
             String productos = txtProductos.getText();
-            
+
             //Guardamos esos datos en un arreglo de objetos
             Object[] objDatos = new Object[4];
             objDatos[0] = cedula;
@@ -118,7 +118,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     //Metodo para eliminar algun proveedor de la BD
     private void eliminarProveedor() {
         int fila = tablaProveedor.getSelectedRow(); //Comprobamos que este seleccionado algun proveedor de la tabla
@@ -133,6 +133,7 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
             listarProveedores();
         }
     }
+
     //Metodo para poner agregar los datos de las tablas a las cajas de texto
     private void agregarDatosDeBaseDatosCajasTexto() {
         int fila = tablaProveedor.getSelectedRow(); //Comprobemos que este seleccionado alguna fila de la tabla
@@ -151,7 +152,8 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
             txtTelefono.setText(telefono);
             txtProductos.setText(productos);
         }
-    }     
+    }
+
     //Metodo para limpiar las cajas de texto y refrescar la tabla
     private void limpiarCajasTexto() {
         txtCedula.setText(null);
@@ -187,6 +189,23 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Ventana Proveedor");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         panelComponentes.setBackground(new java.awt.Color(51, 71, 91));
         panelComponentes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -473,6 +492,12 @@ public class ProveedorModulo extends javax.swing.JInternalFrame {
         limpiarCajasTexto();
         listarProveedores();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        if (evt.getInternalFrame().isClosable()) {
+            Menu.contador = 0;
+        }
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

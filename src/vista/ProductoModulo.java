@@ -1,6 +1,5 @@
 package vista;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +12,7 @@ import modelo.ProductosDatos;
  */
 public class ProductoModulo extends javax.swing.JInternalFrame {
 
+    Menu menu = new Menu();
     int idproducto;
     ProductosDatos datosProducto = new ProductosDatos(); //Creo un objeto de la clase datosProductos para tener acceso a los metodos del CRUD
     Producto producto = new Producto(); //Creo un objeto de la clase Producto p
@@ -170,6 +170,23 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Ventana Producto");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         panelComponentes.setBackground(new java.awt.Color(51, 71, 91));
         panelComponentes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -432,6 +449,12 @@ public class ProductoModulo extends javax.swing.JInternalFrame {
         limpiarCajasTexto();
         listarProductos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        if (evt.getInternalFrame().isClosable()){
+            Menu.contador = 0;                   
+        }
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
