@@ -22,26 +22,26 @@ public class Menu extends javax.swing.JFrame {
     ReportesModulo ventanaReportes;
     public static int contador = 0;
     public static Vendedor vendedor;
-    
+
     public Menu() {
         initComponents();
         ventana(); //Llamamos al metodo en el constructor para aplicar las caracteristicas
         iconoBotones();
     }
-    
+
     //Segundo constructor que recibe los datos del vendedor
-    public Menu(Vendedor vendedor){
+    public Menu(Vendedor vendedor) {
         initComponents();
         ventana(); //Llamamos al metodo en el constructor para aplicar las caracteristicas
         iconoBotones();
         Menu.vendedor = vendedor;
         lblMensajeUsuario.setText("Bienvenido: " + vendedor.getNombre());
-       if(!vendedor.getUsuario().equals("administrador")){
+        if (!vendedor.getUsuario().equals("administrador")) {
             btnVendedor.setEnabled(false);
             btnReportes.setEnabled(false);
-       }          
+        }
     }
-    
+
     private void ventana() { //Metodo para inicializar la ventana maximizada y con titulo
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("SISTEMA DE GESTION DE VENTAS E INVENTARIOS - MI PAPELERIA");
@@ -389,7 +389,7 @@ public class Menu extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
+
         try {
 
             UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
