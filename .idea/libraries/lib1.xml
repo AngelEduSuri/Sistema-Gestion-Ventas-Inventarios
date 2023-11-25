@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/groovy-2.4.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/itextpdf-5.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/JTattoo-1.6.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/itext-pdfa-5.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/jasperreports-6.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/commons-collections-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/commons-logging-1.2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/nbproject/lib/commons-digester-2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
