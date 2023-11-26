@@ -45,37 +45,37 @@ public class Menu extends javax.swing.JFrame {
 
     //Metodo para asignar los iconos a los botones
     private void iconoBotones() {
-        ImageIcon iconoVenta = new ImageIcon(getClass().getResource("/images/shopping_bag_icon.png"));
+        ImageIcon iconoVenta = new ImageIcon(getClass().getResource("/drawables/shopping_bag_icon.png"));
         int anchoVenta = btnNuevaVenta.getWidth();
         int altoVenta = btnNuevaVenta.getHeight();
         ImageIcon iconUno = new ImageIcon(iconoVenta.getImage().getScaledInstance(anchoVenta, altoVenta, Image.SCALE_SMOOTH));
         btnNuevaVenta.setIcon(iconUno);
 
-        ImageIcon iconoProducto = new ImageIcon(getClass().getResource("/images/inventory_icon.png"));
+        ImageIcon iconoProducto = new ImageIcon(getClass().getResource("/drawables/inventory_icon.png"));
         int anchoProducto = btnProductos.getWidth();
         int altoProducto = btnProductos.getHeight();
         ImageIcon iconDos = new ImageIcon(iconoProducto.getImage().getScaledInstance(anchoProducto, altoProducto, Image.SCALE_SMOOTH));
         btnProductos.setIcon(iconDos);
 
-        ImageIcon iconoVendedor = new ImageIcon(getClass().getResource("/images/seller_icon.png"));
+        ImageIcon iconoVendedor = new ImageIcon(getClass().getResource("/drawables/seller_icon.png"));
         int anchoVendedor = btnVendedor.getWidth();
         int altoVendedor = btnProveedor.getHeight();
         ImageIcon iconTres = new ImageIcon(iconoVendedor.getImage().getScaledInstance(anchoVendedor, altoVendedor, Image.SCALE_SMOOTH));
         btnVendedor.setIcon(iconTres);
 
-        ImageIcon iconoReporte = new ImageIcon(getClass().getResource("/images/report_icon.png"));
+        ImageIcon iconoReporte = new ImageIcon(getClass().getResource("/drawables/report_icon.png"));
         int anchoReporte = btnReportes.getWidth();
         int altoReporte = btnReportes.getHeight();
         ImageIcon iconCuatro = new ImageIcon(iconoReporte.getImage().getScaledInstance(anchoReporte, altoReporte, Image.SCALE_SMOOTH));
         btnReportes.setIcon(iconCuatro);
 
-        ImageIcon iconoProveedor = new ImageIcon(getClass().getResource("/images/provider.png"));
+        ImageIcon iconoProveedor = new ImageIcon(getClass().getResource("/drawables/provider.png"));
         int anchoProveedor = btnProveedor.getWidth();
         int altoProveedor = btnProveedor.getHeight();
         ImageIcon iconCinco = new ImageIcon(iconoProveedor.getImage().getScaledInstance(anchoProveedor, altoProveedor, Image.SCALE_SMOOTH));
         btnProveedor.setIcon(iconCinco);
 
-        ImageIcon iconoSalir = new ImageIcon(getClass().getResource("/images/close_icon.png"));
+        ImageIcon iconoSalir = new ImageIcon(getClass().getResource("/drawables/close_icon.png"));
         int anchoSalir = btnSalir.getWidth();
         int altoSalir = btnSalir.getHeight();
         ImageIcon iconSeis = new ImageIcon(iconoSalir.getImage().getScaledInstance(anchoSalir, altoSalir, Image.SCALE_SMOOTH));
@@ -106,7 +106,7 @@ public class Menu extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         lblMensajeUsuario = new javax.swing.JLabel();
         panelVentana = new javax.swing.JPanel();
-        ImageIcon fondo = new ImageIcon(getClass().getResource("/images/stationery_store_background.jpg"));
+        ImageIcon fondo = new ImageIcon(getClass().getResource("/drawables/stationery_store_background.jpg"));
         Image img = fondo.getImage();
         ventanaModulos = new javax.swing.JDesktopPane(){
 

@@ -149,7 +149,7 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
 
         btnreporteTotal.setBackground(new java.awt.Color(0, 204, 51));
         btnreporteTotal.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnreporteTotal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business_report_icon.png"))); // NOI18N
+        btnreporteTotal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/business_report_icon.png"))); // NOI18N
         btnreporteTotal.setText("Generar Reporte Completo");
         btnreporteTotal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnreporteTotal.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
@@ -161,7 +161,7 @@ public class ReportesModulo extends javax.swing.JInternalFrame {
 
         btnReporteFecha.setBackground(new java.awt.Color(0, 204, 51));
         btnReporteFecha.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnReporteFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar_icon.png"))); // NOI18N
+        btnReporteFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/calendar_icon.png"))); // NOI18N
         btnReporteFecha.setText("Generar Reporte por Fecha");
         btnReporteFecha.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReporteFecha.setVerticalTextPosition(javax.swing.SwingConstants.TOP);

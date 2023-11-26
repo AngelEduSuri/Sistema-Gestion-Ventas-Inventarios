@@ -197,7 +197,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 		// Display a calendar button with an icon
 		URL iconURL = getClass().getResource(
-				"/com/toedter/calendar/images/JDateChooserIcon.gif");
+				"/com/toedter/calendar/drawables/JDateChooserIcon.gif");
 		ImageIcon icon = new ImageIcon(iconURL);
 
 		calendarButton = new JButton(icon) {
@@ -578,7 +578,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 		// dateChooser.setDateFormatString("yyyy-MM-dd HH:mm");
 
 		// URL iconURL = dateChooser.getClass().getResource(
-		// "/com/toedter/calendar/images/JMonthChooserColor32.gif");
+		// "/com/toedter/calendar/drawables/JMonthChooserColor32.gif");
 		// ImageIcon icon = new ImageIcon(iconURL);
 		// dateChooser.setIcon(icon);
 

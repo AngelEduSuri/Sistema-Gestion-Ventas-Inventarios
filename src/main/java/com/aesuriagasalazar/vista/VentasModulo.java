@@ -342,7 +342,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
         lblDireccion.setForeground(new java.awt.Color(255, 255, 255));
         lblDireccion.setText("Direccion: Arenillas - Calle Juan Montalvo y Calle Esmeraldas");
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/seller_logo.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/seller_logo.png"))); // NOI18N
 
         lblSerie.setFont(new java.awt.Font("Arial Narrow", 1, 16)); // NOI18N
         lblSerie.setForeground(new java.awt.Color(255, 255, 255));
@@ -479,7 +479,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
         btnBuscarProducto.setBackground(new java.awt.Color(0, 204, 51));
         btnBuscarProducto.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lens_icon.png"))); // NOI18N
+        btnBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/lens_icon.png"))); // NOI18N
         btnBuscarProducto.setText("Buscar");
         btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,7 +496,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
         btnAgregarProducto.setBackground(new java.awt.Color(0, 204, 51));
         btnAgregarProducto.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add_cart_icon.png"))); // NOI18N
+        btnAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/add_cart_icon.png"))); // NOI18N
         btnAgregarProducto.setText("Agregar");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -696,7 +696,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
         btnLimipiarTodo.setBackground(new java.awt.Color(0, 204, 51));
         btnLimipiarTodo.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnLimipiarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear_icon.png"))); // NOI18N
+        btnLimipiarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/clear_icon.png"))); // NOI18N
         btnLimipiarTodo.setText("Limpiar");
         btnLimipiarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -714,7 +714,7 @@ public class VentasModulo extends javax.swing.JInternalFrame {
 
         btnGenerarVenta.setBackground(new java.awt.Color(0, 204, 51));
         btnGenerarVenta.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnGenerarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bag_icon.png"))); // NOI18N
+        btnGenerarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/bag_icon.png"))); // NOI18N
         btnGenerarVenta.setText("Generar Venta");
         btnGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -264,7 +264,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
 
         btnLimpiar.setBackground(new java.awt.Color(0, 204, 51));
         btnLimpiar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear_icon.png"))); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/clear_icon.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +284,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
 
         btnAgregar.setBackground(new java.awt.Color(0, 204, 51));
         btnAgregar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add_icon.png"))); // NOI18N
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/add_icon.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +303,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
 
         btnActualizar.setBackground(new java.awt.Color(0, 204, 51));
         btnActualizar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update_icon.png"))); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/update_icon.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +320,7 @@ public class VendedorModulo extends javax.swing.JInternalFrame {
 
         btnEliminar.setBackground(new java.awt.Color(0, 204, 51));
         btnEliminar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_icon.png"))); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/delete_icon.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

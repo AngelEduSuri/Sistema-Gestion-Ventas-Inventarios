@@ -130,13 +130,13 @@ public class Login extends javax.swing.JFrame {
 
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        fondoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login_background.png"))); // NOI18N
+        fondoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/login_background.png"))); // NOI18N
         panelFondo.add(fondoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 180, 180));
 
         btnSalir.setBackground(new java.awt.Color(84, 65, 136));
         btnSalir.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout_icon.png"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/logout_icon.png"))); // NOI18N
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +164,7 @@ public class Login extends javax.swing.JFrame {
         btnIngresar.setBackground(new java.awt.Color(84, 65, 136));
         btnIngresar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login_icon.png"))); // NOI18N
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/login_icon.png"))); // NOI18N
         btnIngresar.setText("INGRESAR");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +182,7 @@ public class Login extends javax.swing.JFrame {
         lblSesionCorrecta.setForeground(new java.awt.Color(255, 255, 255));
         panelFondo.add(lblSesionCorrecta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 330, 40));
 
-        fondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background.jpg"))); // NOI18N
+        fondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawables/background.jpg"))); // NOI18N
         panelFondo.add(fondoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

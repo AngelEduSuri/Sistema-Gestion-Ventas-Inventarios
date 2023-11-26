@@ -128,8 +128,8 @@
 		<copy todir="${dist.dir}/${doc.dir}/images">
 			<fileset dir="${doc.dir}/images" />
 		</copy>
-		<copy todir="${dist.dir}/${doc.dir}/images/1.4">
-			<fileset dir="${doc.dir}/images/1.4" />
+		<copy todir="${dist.dir}/${doc.dir}/drawables/1.4">
+			<fileset dir="${doc.dir}/drawables/1.4" />
 		</copy>
 
 		<copy todir="${dist.dir}" filtering="yes">
