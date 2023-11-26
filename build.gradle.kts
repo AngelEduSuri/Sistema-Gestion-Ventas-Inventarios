@@ -1,6 +1,6 @@
 plugins {
-    id("java")
     kotlin("jvm") version "1.9.20"
+    application
 }
 
 group = "com.aesuriagasalazar"
@@ -13,7 +13,7 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation(kotlin("stdlib-jdk8"))
+    testImplementation(kotlin("test"))
     implementation(files("libs/AbsoluteLayout.jar"))
     implementation(files("libs/jcalendar-1.4.jar"))
     implementation(files("libs/jasperreports-6.0.0.jar"))
@@ -26,4 +26,8 @@ tasks.test {
 
 kotlin {
     jvmToolchain(17)
+}
+
+application {
+    mainClass.set("MainKt")
 }
